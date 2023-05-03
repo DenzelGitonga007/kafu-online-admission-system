@@ -1,1 +1,37 @@
 {% extends 'common/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+  <div class="jumbotron jumbotron-fluid bg-green">
+    <div class="container text-center">
+      <h1 class="display-4">Welcome to The KAFU Admission System</h1>
+      <p class="lead">Experience a seemless transition into an exquisite university</p>
+      <!-- if user.is_authenticated  -->
+        <!-- <a class="btn btn-primary btn-lg" href="" role="button">View your progress</a> -->
+      <!-- else -->
+        <a class="btn btn-success btn-lg d-inline-block" href="" role="button">Login</a>
+        <p class="d-inline-block mx-2">Or</p>
+        <a class="btn btn-info btn-lg d-inline-block" href="" role="button">Register</a>
+      <!-- endif -->
+    </div>
+  </div>
+
+  <!-- To view the results -->
+  <!-- if user.is_authenticated -->
+  <div class="container">
+    <div class="row">
+      <div class="col mx-auto">
+        <div class="card">
+          <div class="card-body text-center">
+            <h5 class="card-title">View your progress</h5>
+            <p class="card-text">Check here</p>
+            <a href="" class="btn btn-success">View progress</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- endif -->
+{% endblock %}
