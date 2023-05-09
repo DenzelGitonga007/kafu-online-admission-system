@@ -12,9 +12,10 @@ def home(request):
 def register_user(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
-        if form.is_valid:
+        if form.is_valid():
             form.save()
             return redirect('home') # the home url pattern
     else:
+        
         form = UserRegistrationForm()
     return render(request, 'accounts/register.html', {'form': form})

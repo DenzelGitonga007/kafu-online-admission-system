@@ -24,25 +24,29 @@
 
 
                 </div>
-                <!-- Name -->
+                <!-- full_name -->
                 <div class="form-group">
-                    <!-- {{ form.name.label_tag }}
-                    {{ form.name }} -->
-                    <label for="id_name">Fullname</label>
-                    <input type="text" class="form-control" name="fullname" maxlength="100" placeholder="Enter your full name" required="" id="id_fullname" value="{{ form.fullname.value|default:'' }}">
+                  
+                    <label for="id_full_name">Fullname:</label>
+                    <input type="text" class="form-control" name="full_name" maxlength="100" placeholder="Enter your full name" required="" id="id_full_name" value="{{ form.full_name.value|default:'' }}">
 
                 </div>
                 <!-- Email -->
                 <div class="form-group">
-                    <!-- {{ form.email.label_tag }}
-                    {{ form.email }} -->
+                   
                     <label for="id_email">Email:</label>
                     <input type="email" class="form-control" name="email" maxlength="250" placeholder="Enter your email address" required="" id="id_email" value="{{ form.email.value|default:'' }}">
                 </div>
+
+                <!-- Phone_number -->
+                <div class="form-group">
+                   
+                    <label for="id_phone_number">Phone Number:</label>
+                    <input type="tel" class="form-control" name="phone_number" maxlength="250" placeholder="Enter your phone number" required="" id="id_phone_number" value="{{ form.phone_number.value|default:'' }}">
+                </div>
                 <!-- Password -->
                 <div class="form-group">
-                    <!-- {{ form.password.label_tag }}
-                    {{ form.password }} -->
+                    
                     <label for="id_password1">Password:</label>
                     <input type="password" class="form-control" name="password1" placeholder="Enter password" autocomplete="new-password" required="" id="id_password1">   
                     
@@ -50,8 +54,7 @@
                 </div>
                 <!-- Confirm_password -->
                 <div class="form-group">
-                    <!-- {{ form.confirm_password.label_tag }}
-                    {{ form.confirm_password }} -->
+                    
                     <label for="id_password2">Confirm Password:</label>
                     <input type="password" class="form-control" name="password2" placeholder="Password Confirmation" autocomplete="new-password" required="" id="id_password2">
                     <!-- helptext -->
