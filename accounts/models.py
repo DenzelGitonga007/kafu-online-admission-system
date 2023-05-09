@@ -29,6 +29,20 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
+    # To avoid the conflict of User default name
+    groups = models.ManyToManyField(
+        'auth.Group',
+        blank=True,
+        related_name='myuser_set',
+        related_query_name='user',
+    )
+    user_permissions = models.ManyToManyField(
+        'auth.Permission',
+        blank=True,
+        related_name='myuser_set',
+        related_query_name='user',
+    )
+
     objects = UserManager()
 
     USERNAME_FIELD = 'username'
