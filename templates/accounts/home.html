@@ -3,6 +3,29 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
+  <!-- To display the messages -->
+  <!-- The messages -->
+  {% if messages %}
+    
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          {% for message in messages %}
+              {{ message }}
+          {% endfor %}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    
+  {% endif %}
+
+
+  <!-- To let the message disappear after a few seconds -->
+  <script>
+      setTimeout(function() {
+          $('.alert').fadeOut('slow');
+      }, 3000);
+  </script>
+
   <div class="jumbotron jumbotron-fluid bg-green">
     <div class="container text-center">
       <h1 class="display-4">Welcome to The KAFU Admission System</h1>
