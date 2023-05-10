@@ -38,8 +38,8 @@
 
       <!-- Login/Register -->
       <!-- If user is logged in -->
-      
-            <!-- <ul class="navbar-nav d-none d-lg-flex ml-auto order-3">
+      {% if user.is_authenticated %}
+            <ul class="navbar-nav d-none d-lg-flex ml-auto order-3">
                 <li class="nav-item">
                     <a class="nav-link" href="">
                         Welcome, 
@@ -50,9 +50,9 @@
                     Logout
                   </a>
                 </li>
-            </ul> -->
+            </ul>
       <!-- If user is not logged in -->
-      
+      {% else %}
         <ul class="navbar-nav d-none d-lg-flex ml-auto order-3">
           <li class="nav-item">
             <a class="nav-link" href="">
@@ -66,6 +66,6 @@
           </li>
         </ul>
       <!-- End the login/register if statement -->
-      
+      {% endif %}
     </div>
   </nav>
