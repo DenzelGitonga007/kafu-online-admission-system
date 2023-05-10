@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
-from  .forms import UserRegistrationForm
+from  .forms import UserRegistrationForm, LoginForm
 # To display message
 from django.contrib import messages
-
+# For authentication
+from django.contrib.auth import authenticate, login
 # Create your views here.
 
 # Home view
@@ -26,5 +27,21 @@ def register_user(request):
         form = UserRegistrationForm()
     return render(request, 'accounts/register.html', {'form': form})
 
-# # Login
-# def login_user(request):
+# Login
+def login_user(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=username, password=password)
+            # If user exist
+            if user is not None:
+                login(request, user)
+                # Redirect them
+                return redirect('home')
+            else:
+                form.add_error(None, 'Invalid username or password')
+    else:
+        form = LoginForm()
+    return render(request, 'accounts/login.html', {'form': form})
