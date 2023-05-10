@@ -3,7 +3,7 @@ from  .forms import UserRegistrationForm, LoginForm
 # To display message
 from django.contrib import messages
 # For authentication
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 
 # Home view
@@ -47,3 +47,8 @@ def login_user(request):
     else:
         form = LoginForm()
     return render(request, 'accounts/login.html', {'form': form})
+
+# Logout
+def logout_user(request):
+    logout(request)
+    return redirect('home')
