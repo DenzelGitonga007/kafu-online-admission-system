@@ -18,8 +18,8 @@ def register_user(request):
         if form.is_valid():
             form.save()
             # Success message
-            messages.success(request, "Congratulations! You have created an account successfully!")
-            return redirect('home') # the home url pattern
+            messages.success(request, "Congratulations! You have created an account successfully! Now login below...")
+            return redirect('login') # the login url pattern
         # If error in creation
         else:
             messages.error(request, 'There was an error while creating your account. Please try again.')
