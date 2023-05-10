@@ -54,12 +54,12 @@
       <!-- If user is not logged in -->
       {% else %}
         <ul class="navbar-nav d-none d-lg-flex ml-auto order-3">
-          <li class="nav-item">
+          <li class="nav-item {% if request.path == '/login/' %}d-none{% endif %}">
             <a class="nav-link" href="{% url 'login' %}">
               Login
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item {% if request.path == '/register/' %}d-none{% endif %}">
             <a class="nav-link" href="{% url 'register' %}">
               Register
             </a>
