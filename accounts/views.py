@@ -53,4 +53,4 @@ def logout_user(request):
     logout(request)
     # Success message
     messages.success(request, "Thank you for visiting!")
-    return redirect('logout')
+    return render(request, 'accounts/logout.html')
