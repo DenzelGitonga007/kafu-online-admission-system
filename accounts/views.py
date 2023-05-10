@@ -51,4 +51,6 @@ def login_user(request):
 # Logout
 def logout_user(request):
     logout(request)
-    return redirect('home')
+    # Success message
+    messages.success(request, "Thank you for visiting!")
+    return redirect('logout')
