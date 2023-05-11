@@ -40,9 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Accounts app
-    'accounts',
-    # Handling the forms submission
-    'admissions',
+    'accounts', # user authentication
+    # Admission app
+    'admissions', # form submissions
 ]
 
 MIDDLEWARE = [
