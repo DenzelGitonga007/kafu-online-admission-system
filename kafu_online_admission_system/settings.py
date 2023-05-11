@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Accounts app
     'accounts',
+    # Handling the forms submission
+    'admissions',
 ]
 
 MIDDLEWARE = [
