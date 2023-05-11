@@ -19,7 +19,7 @@ class Student(models.Model):
         return self.user.username
 
 # Personal details
-class PersonalDetails(models.Model):
+class PersonalDetail(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     surname = models.CharField(max_length=50)
     first_name = models.CharField(max_length=50)
@@ -33,3 +33,6 @@ class PersonalDetails(models.Model):
     phone = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
     pob = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f"{self.surname} {self.first_name}"
