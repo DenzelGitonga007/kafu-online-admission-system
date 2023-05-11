@@ -1,6 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
+# For creating a student upon signup
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from admissions.models import Student
+
+
 class UserManager(BaseUserManager):
     def create_user(self, username, email, password=None, **extra_fields):
         # Username is required
@@ -50,3 +56,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.username, self.email
+
+@receiver(post_save, sender=User)
+def create_student(sender, instance, created, **kwargs):
+    if created:
+        Student.objects.create(user=instance)
+
+

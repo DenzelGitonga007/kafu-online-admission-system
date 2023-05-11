@@ -11,7 +11,7 @@ class StudentManager(models.Manager):
         student = self.create(user=user)
         return student
 class Student(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='student')
 
     objects = StudentManager()
 
