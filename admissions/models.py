@@ -16,8 +16,9 @@ class Student(models.Model):
     objects = StudentManager()
 
     def __str__(self):
-        return f"{self.get_username()} - {self.user.full_name}"
+        # return f"{self.get_username()} - {self.user.full_name}"
         # return f"{self.username} - {self.email}"
+        return "{} {}".format(self.get_username, self.user.full_name)
     
     def get_username(self):
         return self.user.username
@@ -39,5 +40,4 @@ class PersonalDetail(models.Model):
     pob = models.CharField(max_length=50)
 
     def __str__(self):
-        return f"{self.surname} - {self.first_name}"
-        # return f"{self.username} - {self.email}"
+        return f"{self.surname} {self.first_name}"
