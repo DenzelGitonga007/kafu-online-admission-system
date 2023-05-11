@@ -16,4 +16,4 @@ def personal_detail_view(request):
             return redirect('home')
     else:
         form = PersonalDetailForm()
-    return render(request, 'personal_detail.html', {'form': form})
+    return render(request, 'admissions/personal_detail.html', {'form': form})
