@@ -55,7 +55,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['email']
 
     def __str__(self):
-        return self.username, self.email
+        return self.user.username, self.user.email
 
 @receiver(post_save, sender=User)
 def create_student(sender, instance, created, **kwargs):

@@ -16,6 +16,9 @@ class Student(models.Model):
     objects = StudentManager()
 
     def __str__(self):
+        return self.get_username(), self.user.full_name
+    
+    def get_username(self):
         return self.user.username
 
 # Personal details
