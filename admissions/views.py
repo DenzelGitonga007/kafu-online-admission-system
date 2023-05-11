@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from .forms import PersonalDetailForm
 from .models import Student, PersonalDetail
 
@@ -12,7 +13,12 @@ def personal_detail_view(request):
             personal_detail = form.save(commit=False)
             personal_detail.student = student
             personal_detail.save()
+            # Success message
+            messages.success(request, "Your personal details have been received successfully!!!")
             return redirect('home')
+        # If error in submission
+        else:
+            messages.error(request, 'There was an error while saving your personal details. Please try again.')
     else:
         form = PersonalDetailForm()
     return render(request, 'admissions/personal_detail.html', {'form': form})

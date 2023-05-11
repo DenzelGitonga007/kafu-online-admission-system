@@ -38,4 +38,4 @@ class PersonalDetail(models.Model):
     pob = models.CharField(max_length=50)
 
     def __str__(self):
-        return f"{self.surname} {self.first_name}"
+        return f"{self.surname} {self.first_name} {self.student}"
