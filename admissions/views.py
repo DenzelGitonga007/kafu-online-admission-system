@@ -17,7 +17,7 @@ def personal_detail_view(request):
             personal_detail.save()
             # Success message
             messages.success(request, "Your personal details have been received successfully!!!")
-            return redirect('home')
+            return redirect('admissions:parent_details')
         # If error in submission
         else:
             messages.error(request, 'There was an error while saving your personal details. Please try again.')
