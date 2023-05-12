@@ -7,7 +7,6 @@ from accounts.models import User
 
 @login_required
 def personal_detail_view(request):
-    # student = request.user.student
     user = request.user
     if request.method == 'POST':
         form = PersonalDetailForm(request.POST)

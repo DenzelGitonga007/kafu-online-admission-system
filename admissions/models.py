@@ -34,22 +34,3 @@ class PersonalDetail(models.Model):
     except Exception as e:
         print(e)
 
-
-
-# The student themselves, and pick the current signed in user
-# class StudentManager(models.Manager):
-#     def create_from_user(self, user):
-#         student = self.create(user=user)
-#         return student
-# class Student(models.Model):
-#     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='student')
-
-#     objects = StudentManager()
-
-#     def __str__(self):
-#         # return f"{self.get_username()} - {self.user.full_name}"
-#         # return f"{self.username} - {self.email}"
-#         return "{} {}".format(self.get_username, self.user.full_name)
-    
-#     def get_username(self):
-#         return self.user.username
