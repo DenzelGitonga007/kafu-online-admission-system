@@ -62,4 +62,8 @@ class ParentDetail(models.Model):
     guardian_occupation = models.CharField(max_length=50)
 
 
+    # To display on the admin site
+    def __str__(self):
+        return "{} {} {}".format(self.father_first_name, self.mother_first_name, self.guardian_first_name)
+
 
