@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 # For creating a student upon signup
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
-from admissions.models import Student
+# from admissions.models import Student
 
 
 class UserManager(BaseUserManager):
@@ -58,18 +58,18 @@ class User(AbstractBaseUser, PermissionsMixin):
         return f"{self.username} - {self.email}"
 
 
-@receiver(post_save, sender=User)
-def create_student(sender, instance, created, **kwargs):
-    if created:
-        Student.objects.create(user=instance)
+# @receiver(post_save, sender=User)
+# def create_student(sender, instance, created, **kwargs):
+#     if created:
+#         Student.objects.create(user=instance)
 
 
-@receiver(post_delete, sender=User)
-def delete_student(sender, instance, **kwargs):
-    try:
-        student = instance.student
-        student.delete()
-    except Student.DoesNotExist:
-        pass
+# @receiver(post_delete, sender=User)
+# def delete_student(sender, instance, **kwargs):
+#     try:
+#         student = instance.student
+#         student.delete()
+#     except Student.DoesNotExist:
+#         pass
 
 
