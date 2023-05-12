@@ -28,9 +28,13 @@
     <div class="container text-center">
       <h1 class="display-4">Welcome to The KAFU Admission System</h1>
       <p class="lead">Experience a seemless transition into an exquisite university</p>
-      {% if user.is_authenticated %} 
+      {% if user.is_authenticated %}
+        {% if request.user.personaldetail_set.exists %}
+          <a class="btn btn-success btn-lg" href="{%  url 'admissions:personal_details' %}" role="button">Continue with the application process</a>
         <!-- <a class="btn btn-primary btn-lg" href="" role="button">View your progress</a> -->
-        <a class="btn btn-success btn-lg" href="{%  url 'admissions:personal_details' %}" role="button">Start the application process</a>
+        {% else %}
+          <a class="btn btn-success btn-lg" href="{%  url 'admissions:personal_details' %}" role="button">Start the application process</a>
+        {% endif %}
       {% else %}
         <a class="btn btn-success btn-lg d-inline-block" href="{% url 'login' %}" role="button">Login</a>
         <p class="d-inline-block mx-2">Or</p>
@@ -39,8 +43,7 @@
     </div>
   </div>
 <!-- End of jumbotron -->
-  <!-- To start the application -->
-  {% if user.is_authenticated %}
+  {% if user.is_authenticated and request.user.personaldetail_set.exists %}
   <div class="container">
     <div class="row">
       <div class="col mx-auto">
