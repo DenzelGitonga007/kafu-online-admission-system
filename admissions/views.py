@@ -16,7 +16,7 @@ def personal_detail_view(request):
             personal_detail.user = user
             personal_detail.save()
             # Success message
-            messages.success(request, "Your personal details have been received successfully!!!")
+            messages.success(request, "Your personal details have been received successfully!!!\nNow fill in your parent(s) details in the form below")
             return redirect('admissions:parent_details')
         # If error in submission
         else:
