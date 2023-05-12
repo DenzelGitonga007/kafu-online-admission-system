@@ -25,7 +25,7 @@ class PersonalDetail(models.Model):
 
     def __str__(self):
         # return f"{self.user} {self.surname} {self.first_name}"
-        return "{} {} {}".format(self.user, self.first_name, self.email)
+        return "{} {} {}".format(self.user.username, self.first_name, self.email)
     try:
         personal_details = PersonalDetail.objects.filter(user=user)
         personal_details.delete()
