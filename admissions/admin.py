@@ -12,8 +12,6 @@ def username(obj):
 class PersonalDetailAdmin(admin.ModelAdmin):
     list_display = (username,'surname', 'first_name', 'last_name', 'email', 'phone', 'city')
 
-
-
 # Parent details
 class ParentDetailAdmin(admin.ModelAdmin):
     list_display = (username, 'father_first_name', 'mother_first_name', 'guardian_first_name')
