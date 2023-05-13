@@ -1,5 +1,7 @@
 from django import forms
-from .models import PersonalDetail, ParentDetail
+from .models import PersonalDetail, ParentDetail, SpouseDetail
+
+# Personal details
 class PersonalDetailForm(forms.ModelForm):
     class Meta:
         model = PersonalDetail
@@ -18,6 +20,7 @@ class PersonalDetailForm(forms.ModelForm):
             'pob'
         ]
 
+# Parent details
 class ParentDetailForm(forms.ModelForm):
     class Meta:
         model = ParentDetail
@@ -49,4 +52,20 @@ class ParentDetailForm(forms.ModelForm):
             'guardian_pob',
             'guardian_occupation',
 
+        ]
+
+class SpouseDetailForm(forms.ModelForm):
+    class Meta:
+        model = SpouseDetail
+        fields = [
+            'marital_status',
+            'spouse_surname',
+            'spouse_first_name',
+            'spouse_last_name',
+            'spouse_national_id',
+            'spouse_email',
+            'spouse_phone',
+            'spouse_city',
+            'spouse_pob',
+            'spouse_occupation',
         ]

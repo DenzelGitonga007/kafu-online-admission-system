@@ -66,4 +66,22 @@ class ParentDetail(models.Model):
     def __str__(self):
         return "{} {} {}".format(self.father_first_name, self.mother_first_name, self.guardian_first_name)
 
+# Spouse details
+class SpouseDetail(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    marital_status = models.CharField(max_length=50)
+    spouse_surname = models.CharField(max_length=50)
+    spouse_first_name = models.CharField(max_length=50)
+    spouse_last_name = models.CharField(max_length=50)
+    spouse_national_id = models.CharField(max_length=50)
+    spouse_email = models.CharField(max_length=50)
+    spouse_phone = models.CharField(max_length=50)
+    spouse_city = models.CharField(max_length=50)
+    spouse_pob = models.CharField(max_length=50)
+    spouse_occupation = models.CharField(max_length=50)
+
+    # Diplay on the admin site
+    def __str__(self):
+        return "{} {} {}".format(self.marital_status)
+
 

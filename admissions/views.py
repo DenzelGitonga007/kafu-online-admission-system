@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import PersonalDetailForm, ParentDetailForm
-from .models import PersonalDetail, ParentDetail
+from .forms import PersonalDetailForm, ParentDetailForm, SpouseDetailForm
+from .models import PersonalDetail, ParentDetail, SpouseDetail
 from accounts.models import User
 
 # Personal details
@@ -37,7 +37,7 @@ def parent_detail_view(request):
             parent_detail.save()
             # Success message
             messages.success(request, "Your parent details have been received successfully!!!")
-            return redirect('home')
+            return redirect('admissions:spouse_details')
          # If error in submission
         else:
             messages.error(request, 'There was an error while saving your parent details. Please try again.')
@@ -45,3 +45,25 @@ def parent_detail_view(request):
         form = ParentDetailForm()
     context = {'form': form}
     return render(request, 'admissions/parent_detail.html', context)
+
+
+# Spouse details
+@login_required
+def spouse_detail_view(request):
+    user = request.user
+    if request.method == 'POST':
+        form = SpouseDetailForm(request.POST)
+        if form.is_valid():
+            spouse_detail = form.save(commit=False)
+            spouse_detail.user = user
+            spouse_detail.save()
+            # Success message
+            messages.success(request, "Your spouse details have been received successfully!!!")
+            return redirect('home')
+        else:
+            messages.error(request, 'There was an error while saving your parent details. Please try again.')
+    else:
+        form = SpouseDetailForm()
+    context = {'form': form}
+    return render(request, 'admissions/spouse_detail.html', context)
+    
