@@ -1,0 +1,119 @@
+<!-- Call the layouts -->
+
+{% extends 'common/base.html' %}
+{% block title %}Emergency Contact Details{% endblock %}
+{% block content %}
+  <!-- To display the messages -->
+  <!-- The messages -->
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endfor %}
+  {% endif %}
+
+
+  <!-- To let the message disappear after a few seconds -->
+  <script>
+      setTimeout(function() {
+          $('.alert').fadeOut('slow');
+      }, 3000);
+  </script>
+        <!-- Emergency Contact Details -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <form action="" method="POST"> <!-- The url/route posts the details -->
+                        <!-- The cross-site request forgery -->
+                        {% csrf_token %} 
+                        <!-- Parent Details -->
+                        <h2 class="card-header" style="margin-top: 10px;">Emergency Contact Details</h2>
+                        <br>
+                            <!-- Next of Kin -->
+                            <h4 class="card-header">Emergency Contact Details</h4>
+                            <br> 
+                                <!-- Name -->
+                                <div class="card-header">Emergency Contact's Name</div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <!-- Surname -->
+                                            <div class="col">
+                                                <label for="id_emerge_con_surname" class="form-label">Surname</label>
+                                                <input type="text" class="form-control" placeholder="Emergency Contact's Surname" name="emerge_con_surname" value="{{ form.emerge_con_surname.value|default:'' }}">
+                                            </div>
+                                            <!-- First_Name -->
+                                            <div class="col">
+                                                <label for="id_emerge_con_first_name" class="form-label">First Name</label>
+                                                <input type="text" class="form-control" placeholder="Emergency Contact's First Name" name="emerge_con_first_name" value="{{ form.emerge_con_first_name.value|default:'' }}">
+                                            </div>
+                                            <!-- Initial_name -->
+                                            <div class="col">
+                                                <label for="id_emerge_con_initial_name" class="form-label">Initial/Other Name</label>
+                                                <input type="text" class="form-control" placeholder="Emergency Contact's Initial/Other Name" name="emerge_con_initial_name" value="{{ form.emerge_con_initial_name.value|default:'' }}">
+                                            </div>
+                                        </div>
+                                    </div>       
+                                <!-- National_ID -->
+                                <div class="card-header">Nationality</div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col">
+                                                <label for="id_emerge_con_national_id" class="form-label">National ID</label>
+                                                <input type="number" class="form-control" name="emerge_con_national_id" pattern="[0-9]{8}" placeholder="National ID Number" value="{{ form.emerge_con_national_id.value|default:'' }}">
+                                            </div> 
+                                        </div>
+                                    </div>
+                                <div class="card-header">Emergency Contact's Contact Address</div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <!-- Email -->
+                                            <div class="col">
+                                                <label for="id_emerge_con_email" class="form-label">Email</label>
+                                                <input type="email" class="form-control" placeholder="Enter your Emergency Contact's email" name="emerge_con_email" value="{{ form.emerge_con_email.value|default:'' }}">
+                                            </div>
+                                            <!-- Phone -->
+                                            <div class="col">
+                                                <label for="id_emerge_con_phone" class="form-label">Phone Number</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text">+254</span>
+                                                    <input type="tel" class="form-control" placeholder="7000000**" name="emerge_con_phone" pattern="[0-9]{9}" value="{{ form.emerge_con_phone.value|default:'' }}">
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                <div class="card-header">Emergency Contact's Home Address</div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <!-- City/Town -->
+                                            <div class="col">
+                                                <label for="id_emerge_con_city" class="form-label">City/Town</label>
+                                                <input type="text" class="form-control" placeholder="Which is your Emergency Contact's closest city/town" name="emerge_con_city" value="{{ form.emerge_con_city.value|default:'' }}">  
+                                            </div>
+                                            <!-- P.O BOX -->
+                                            <div class="col">
+                                                <label for="id_emerge_con_pob" class="form-label">P.O BOX</label>
+                                                <input type="text" class="form-control" placeholder="Enter your Emergency Contact's P.O BOX" name="emerge_con_pob" value="{{ form.emerge_con_pob.value|default:'' }}">
+                                            </div>
+                                        </div>
+                                    </div>   
+
+                                      
+                        <!-- The buttons -->
+                        <div class="card-body">
+                            <div class="col">
+                                <div class="row">
+                                    <button class="btn btn-outline-success btn-block">Submit Your Emergency Contact Details</button>
+                                </div>
+                            </div>
+                        </div>            
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

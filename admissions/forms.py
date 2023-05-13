@@ -1,5 +1,5 @@
 from django import forms
-from .models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail, HighSchoolDetail
+from .models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail, HighSchoolDetail, EmergencyContactDetail
 
 # Personal details
 class PersonalDetailForm(forms.ModelForm):
@@ -110,4 +110,19 @@ class HighSchoolDetailForm(forms.ModelForm):
             'third_high_school_town',
             'third_high_school_from_date',
             'third_high_school_to_date',
+        ]
+
+class EmergencyContactDetailForm(forms.ModelForm):
+    class Meta:
+        model = EmergencyContactDetail
+        fields = [
+            'emerge_con_surname',
+            'emerge_con_first_name',
+            'emerge_con_initial_name',
+            'emerge_con_national_id',
+            'emerge_con_email',
+            'emerge_con_phone',
+            'emerge_con_city',
+            'emerge_con_pob',
+            # 'emerge_con_occupation',
         ]

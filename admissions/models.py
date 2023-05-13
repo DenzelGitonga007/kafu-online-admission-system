@@ -125,3 +125,19 @@ class HighSchoolDetail(models.Model):
 
     def __str__(self):
         return "{}".format(self.first_high_school_name)
+
+# Emergency Contact details
+class EmergencyContactDetail(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    emerge_con_surname = models.CharField(max_length=50)
+    emerge_con_first_name = models.CharField(max_length=50)
+    emerge_con_initial_name = models.CharField(max_length=50)
+    emerge_con_national_id = models.CharField(max_length=50)
+    emerge_con_email = models.CharField(max_length=50)
+    emerge_con_phone = models.CharField(max_length=50)
+    emerge_con_city = models.CharField(max_length=50)
+    emerge_con_pob = models.CharField(max_length=50)
+    # emerge_con_occupation = models.CharField(max_length=50)
+
+    def __str__(self):
+        return "{}".format(self.first_high_school_name)

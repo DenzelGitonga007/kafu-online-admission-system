@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import PersonalDetailForm, ParentDetailForm, SpouseDetailForm, NextKinDetailForm, HighSchoolDetailForm
-from .models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail
+from .forms import PersonalDetailForm, ParentDetailForm, SpouseDetailForm, NextKinDetailForm, HighSchoolDetailForm, EmergencyContactDetailForm
+from .models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail, EmergencyContactDetail
 from accounts.models import User
 
 # Personal details
@@ -36,7 +36,7 @@ def parent_detail_view(request):
             parent_detail.user = user
             parent_detail.save()
             # Success message
-            messages.success(request, "Your parent details have been received successfully!!!")
+            messages.success(request, "Your parent details have been received successfully!\nNow fill in your spouse details in the form below")
             return redirect('admissions:spouse_details')
          # If error in submission
         else:
@@ -58,7 +58,7 @@ def spouse_detail_view(request):
             spouse_detail.user = user
             spouse_detail.save()
             # Success message
-            messages.success(request, "Your spouse details have been received successfully!!!")
+            messages.success(request, "Your spouse details have been received successfully!\nNow fill in your next of kin details in the form below")
             return redirect('admissions:next_kin_details')
         else:
             messages.error(request, 'There was an error while saving your parent details. Please try again.')
@@ -78,13 +78,34 @@ def next_kin_detail_view(request):
             nxtk_detail.save()
             # Success message
             messages.success(request, "Your next of kin details have been received successfully!!!")
-            return redirect('admissions:high_school_details')
+            return redirect('admissions:emergency_contact_details')
         else:
             messages.error(request, 'There was an error while saving your next of kin details. Please try again.')
     else:
         form = NextKinDetailForm()
     context = {'form': form}
     return render(request, 'admissions/nxtk_detail.html', context)
+
+
+# Emergency contact    
+@login_required
+def emergency_contact_detail_view(request):
+    user = request.user
+    if request.method == 'POST':
+        form = EmergencyContactDetailForm(request.POST)
+        if form.is_valid():
+            emergency_contact_detail = form.save(commit=False)
+            emergency_contact_detail.user = user
+            emergency_contact_detail.save()
+            # Success message
+            messages.success(request, "Your emergency contact details have been received successfully!\nNow fill in your high school(s) details in the form below")
+            return redirect('admissions:high_school_details')
+        else:
+            messages.error(request, 'There was an error while saving your emergency contact details. Please try again.')
+    else:
+        form = EmergencyContactDetailForm()
+    context = {'form': form}
+    return render(request, 'admissions/emergency_contact_detail.html', context)
 
 @login_required
 def high_school_detail_view(request):
@@ -96,7 +117,7 @@ def high_school_detail_view(request):
             high_school_detail.user = user
             high_school_detail.save()
             # Success message
-            messages.success(request, "Your high school details have been received successfully!!!")
+            messages.success(request, "Your high school details have been received successfully!\nNow fill in your games and sports details in the form below")
             return redirect('home')
         else:
             messages.error(request, 'There was an error while saving your high school details. Please try again.')
