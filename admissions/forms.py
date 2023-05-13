@@ -1,5 +1,5 @@
 from django import forms
-from .models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail
+from .models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail, HighSchoolDetail
 
 # Personal details
 class PersonalDetailForm(forms.ModelForm):
@@ -83,4 +83,31 @@ class NextKinDetailForm(forms.ModelForm):
             'nxtk_phone',
             'nxtk_city',
             'nxtk_pob',
+        ]
+
+# High School details
+class HighSchoolDetailForm(forms.ModelForm):
+    class Meta:
+        model = HighSchoolDetail
+        fields = [
+            # First High School
+            'first_high_school_name',
+            'first_high_school_address',
+            'first_high_school_town',
+            'first_high_school_from_date',
+            'first_high_school_to_date',
+
+            # Second High School
+            'second_high_school_name',
+            'second_high_school_address',
+            'second_high_school_town',
+            'second_high_school_from_date',
+            'second_high_school_to_date',
+
+            # Third High School
+            'third_high_school_name',
+            'third_high_school_address',
+            'third_high_school_town',
+            'third_high_school_from_date',
+            'third_high_school_to_date',
         ]

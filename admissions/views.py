@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import PersonalDetailForm, ParentDetailForm, SpouseDetailForm, NextKinDetailForm
+from .forms import PersonalDetailForm, ParentDetailForm, SpouseDetailForm, NextKinDetailForm, HighSchoolDetailForm
 from .models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail
 from accounts.models import User
 
@@ -59,7 +59,7 @@ def spouse_detail_view(request):
             spouse_detail.save()
             # Success message
             messages.success(request, "Your spouse details have been received successfully!!!")
-            return redirect('admissions:next_kin')
+            return redirect('admissions:next_kin_details')
         else:
             messages.error(request, 'There was an error while saving your parent details. Please try again.')
     else:
@@ -68,7 +68,7 @@ def spouse_detail_view(request):
     return render(request, 'admissions/spouse_detail.html', context)
 
 @login_required
-def next_kin_view(request):
+def next_kin_detail_view(request):
     user = request.user
     if request.method == 'POST':
         form = NextKinDetailForm(request.POST)
@@ -78,10 +78,29 @@ def next_kin_view(request):
             nxtk_detail.save()
             # Success message
             messages.success(request, "Your next of kin details have been received successfully!!!")
-            return redirect('home')
+            return redirect('admissions:high_school_details')
         else:
-            messages.error(request, 'There was an error while saving your parent details. Please try again.')
+            messages.error(request, 'There was an error while saving your next of kin details. Please try again.')
     else:
         form = NextKinDetailForm()
     context = {'form': form}
     return render(request, 'admissions/nxtk_detail.html', context)
+
+@login_required
+def high_school_detail_view(request):
+    user = request.user
+    if request.method == 'POST':
+        form = HighSchoolDetailForm(request.POST)
+        if form.is_valid():
+            high_school_detail = form.save(commit=False)
+            high_school_detail.user = user
+            high_school_detail.save()
+            # Success message
+            messages.success(request, "Your high school details have been received successfully!!!")
+            return redirect('home')
+        else:
+            messages.error(request, 'There was an error while saving your high school details. Please try again.')
+    else:
+        form = HighSchoolDetailForm()
+    context = {'form': form}
+    return render(request, 'admissions/high_school_detail.html', context)

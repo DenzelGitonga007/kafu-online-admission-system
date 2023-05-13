@@ -84,7 +84,7 @@ class SpouseDetail(models.Model):
     def __str__(self):
         return "{} {} {}".format(self.marital_status)
 
-
+# Next of kin details
 class NextKinDetail(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     nxtk_surname = models.CharField(max_length=50)
@@ -97,5 +97,31 @@ class NextKinDetail(models.Model):
     nxtk_pob = models.CharField(max_length=50)
 
     def __str__(self):
-        return "{} {}".format(self.nxtk_first_name)
+        return "{}".format(self.nxtk_first_name)
 
+# High School details
+class HighSchoolDetail(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    # First High School
+    first_high_school_name = models.CharField(max_length=50)
+    first_high_school_address = models.CharField(max_length=50)
+    first_high_school_town = models.CharField(max_length=50)
+    first_high_school_from_date = models.CharField(max_length=50)
+    first_high_school_to_date = models.CharField(max_length=50)
+
+    # Second High School
+    second_high_school_name = models.CharField(max_length=50)
+    second_high_school_address = models.CharField(max_length=50)
+    second_high_school_town = models.CharField(max_length=50)
+    second_high_school_from_date = models.CharField(max_length=50)
+    second_high_school_to_date = models.CharField(max_length=50)
+
+    # Third High School
+    third_high_school_name = models.CharField(max_length=50)
+    third_high_school_address = models.CharField(max_length=50)
+    third_high_school_town = models.CharField(max_length=50)
+    third_high_school_from_date = models.CharField(max_length=50)
+    third_high_school_to_date = models.CharField(max_length=50)
+
+    def __str__(self):
+        return "{}".format(self.first_high_school_name)

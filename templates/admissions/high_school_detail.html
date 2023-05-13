@@ -1,0 +1,168 @@
+<!-- Call the layouts -->
+
+{% extends 'common/base.html' %}
+{% block title %}High School Details{% endblock %}
+{% block content %}
+  <!-- To display the messages -->
+  <!-- The messages -->
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endfor %}
+  {% endif %}
+
+
+  <!-- To let the message disappear after a few seconds -->
+  <script>
+      setTimeout(function() {
+          $('.alert').fadeOut('slow');
+      }, 3000);
+  </script>
+        <!-- The high_school details -->
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="card">
+                    <!-- The form itself -->
+                    <form action="" method="POST">
+                         <!-- The cross-site request forgery     -->
+                            {% csrf_token %}
+                        <h2 class="card-header" style="margin-top: 10px;">High School/Secondary School Details</h2>
+                        <br>
+                            <div class="card-body">
+                                <!-- The table for the different high schools attended -->
+                                <table class="table table-striped table-bordered table-hover table-responsive">
+                                    <!-- Heading -->
+                                    <tr>
+                                        <th rowspan="2">#</th>
+                                        <th rowspan="2">Name</th>
+                                        <th rowspan="2">Address</th>
+                                        <th rowspan="2">Town</th>
+                                        <th colspan="2">Date</th>
+                                        
+                                    </tr>
+                                    <!-- Splitting the Date into "From" and "To" -->
+                                    <tr>
+                                        <td>From</td>
+                                        <td>To</td>
+                                    </tr>
+                                    <!-- First High school -->
+                                    <tr>
+                                        <!-- First -->
+                                        <td>
+                                            1
+                                        </td>
+
+                                        <!-- Name -->
+                                        <td>
+                                            <input type="text" class="form-control" placeholder="Name of your first high school/secondary school" name="first_high_school_name" value="{{ form.first_high_school_name.value|default:'' }}">
+                                        </td>
+
+                                        <!-- Address -->
+                                        <td>
+                                            <input type="text" class="form-control" placeholder="Address of your first high school/secondary school" name="first_high_school_address" value="{{ form.first_high_school_address.value|default:'' }}">
+                                        </td>
+                                    
+                                        <!-- Town -->
+                                        <td>
+                                            <input type="text" class="form-control" placeholder="The town of your first high school/secondary school" name="first_high_school_town" value="{{ form.first_high_school_town.value|default:'' }}">
+                                        </td>
+
+                                        <!-- From -->
+                                        <td>
+                                           <input type="date" class="form-control" name="first_high_school_from_date" max="2018-01-01" value="{{ form.first_high_school_from_date.value|default:'' }}">
+                                        </td>
+
+                                        <!-- To -->
+                                        <td>
+                                            <input type="date" class="form-control" name="first_high_school_to_date" max="2022-04-01" value="{{ form.first_high_school_to_date.value|default:'' }}">
+                                        </td>
+                                    </tr> 
+
+                                    <!-- Second High school -->
+                                    <tr>
+                                        <!-- Second -->
+                                        <td>
+                                            2
+                                        </td>
+
+                                        <!-- Name -->
+                                        <td>
+                                            <input type="text" class="form-control" placeholder="Name of your second high school/secondary school" name="second_high_school_name" value="{{ form.second_high_school_name.value|default:'' }}">
+                                        </td>
+
+                                        <!-- Address -->
+                                        <td>
+                                            <input type="text" class="form-control" placeholder="Address of your second high school/secondary school" name="second_high_school_address" value="{{ form.second_high_school_address.value|default:'' }}">
+                                        </td>
+
+                                        <!-- Town -->
+                                        <td>
+                                            <input type="text" class="form-control" placeholder="The town of your second high school/secondary school" name="second_high_school_town" value="{{ form.second_high_school_town.value|default:'' }}">
+                                        </td>
+
+                                        <!-- From -->
+                                        <td>
+                                           <input type="date" class="form-control" name="second_high_school_from_date" max="2018-01-01" value="{{ form.second_high_school_from_date.value|default:'' }}">
+                                        </td>
+
+                                        <!-- To -->
+                                        <td>
+                                            <input type="date" class="form-control" name="second_high_school_to_date" max="2022-04-01" value="{{ form.second_high_school_to_date.value|default:'' }}">
+                                        </td>
+                                    </tr>
+
+                                    <!-- Third High school -->
+                                    <tr>
+                                        <!-- Third -->
+                                        <td>
+                                            3
+                                        </td>
+
+                                        <!-- Name -->
+                                        <td>
+                                            <input type="text" class="form-control" placeholder="Name of your third high school/secondary school" name="third_high_school_name" value="{{ form.third_high_school_name.value|default:'' }}">
+                                        </td>
+
+                                        <!-- Address -->
+                                        <td>
+                                            <input type="text" class="form-control" placeholder="Address of your third high school/secondary school" name="third_high_school_address" value="{{ form.third_high_school_address.value|default:'' }}">
+                                        </td>
+
+                                        <!-- Town -->
+                                        <td>
+                                            <input type="text" class="form-control" placeholder="The town of your third high school/secondary school" name="third_high_school_town" value="{{ form.third_high_school_town.value|default:'' }}">
+                                        </td>
+
+                                        <!-- From -->
+                                        <td>
+                                           <input type="date" class="form-control" name="third_high_school_from_date" max="2018-01-01" value="{{ form.third_high_school_from_date.value|default:'' }}">
+                                        </td>
+
+                                        <!-- To -->
+                                        <td>
+                                            <input type="date" class="form-control" name="third_high_school_to_date" max="2022-04-01" value="{{ form.third_high_school_to_date.value|default:'' }}">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        <!-- The submit button     -->
+                        <div class="card-body">
+                            <div class="col">
+                                <div class="row">
+                                    <button class="btn btn-outline-success btn-block">Submit Your High School/Secondary School Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %} 
+<!-- End layouts -->
