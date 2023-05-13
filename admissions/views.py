@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import PersonalDetailForm, ParentDetailForm, SpouseDetailForm
-from .models import PersonalDetail, ParentDetail, SpouseDetail
+from .forms import PersonalDetailForm, ParentDetailForm, SpouseDetailForm, NextKinDetailForm
+from .models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail
 from accounts.models import User
 
 # Personal details
@@ -59,11 +59,29 @@ def spouse_detail_view(request):
             spouse_detail.save()
             # Success message
             messages.success(request, "Your spouse details have been received successfully!!!")
-            return redirect('home')
+            return redirect('admissions:next_kin')
         else:
             messages.error(request, 'There was an error while saving your parent details. Please try again.')
     else:
         form = SpouseDetailForm()
     context = {'form': form}
     return render(request, 'admissions/spouse_detail.html', context)
-    
+
+@login_required
+def next_kin_view(request):
+    user = request.user
+    if request.method == 'POST':
+        form = NextKinDetailForm(request.POST)
+        if form.is_valid():
+            nxtk_detail = form.save(commit=False)
+            nxtk_detail.user = user
+            nxtk_detail.save()
+            # Success message
+            messages.success(request, "Your next of kin details have been received successfully!!!")
+            return redirect('home')
+        else:
+            messages.error(request, 'There was an error while saving your parent details. Please try again.')
+    else:
+        form = NextKinDetailForm()
+    context = {'form': form}
+    return render(request, 'admissions/nxtk_detail.html', context)

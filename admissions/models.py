@@ -85,3 +85,17 @@ class SpouseDetail(models.Model):
         return "{} {} {}".format(self.marital_status)
 
 
+class NextKinDetail(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    nxtk_surname = models.CharField(max_length=50)
+    nxtk_first_name = models.CharField(max_length=50)
+    nxtk_initial_name = models.CharField(max_length=50)
+    nxtk_national_id = models.CharField(max_length=50)
+    nxtk_email = models.CharField(max_length=50)
+    nxtk_phone = models.CharField(max_length=50)
+    nxtk_city = models.CharField(max_length=50)
+    nxtk_pob = models.CharField(max_length=50)
+
+    def __str__(self):
+        return "{} {}".format(self.nxtk_first_name)
+

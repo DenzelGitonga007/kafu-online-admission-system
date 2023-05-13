@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import PersonalDetail, ParentDetail, SpouseDetail
+from .models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail
 
 # To customize the Student display
 # Get the username for all details
@@ -20,6 +20,11 @@ class ParentDetailAdmin(admin.ModelAdmin):
 class SpouseDetailAdmin(admin.ModelAdmin):
     list_display = (username, 'marital_status', 'spouse_first_name')
 
+# Next of Kin details
+class NxtkDetailAdmin(admin.ModelAdmin):
+    list_display = (username, 'nxtk_first_name')
+
 admin.site.register(PersonalDetail, PersonalDetailAdmin) # Personal details
 admin.site.register(ParentDetail, ParentDetailAdmin) # Parent details
 admin.site.register(SpouseDetail, SpouseDetailAdmin) # Spouse details
+admin.site.register(NextKinDetail, NxtkDetailAdmin) # Spouse details

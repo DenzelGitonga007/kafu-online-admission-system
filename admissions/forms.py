@@ -1,5 +1,5 @@
 from django import forms
-from .models import PersonalDetail, ParentDetail, SpouseDetail
+from .models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail
 
 # Personal details
 class PersonalDetailForm(forms.ModelForm):
@@ -68,4 +68,19 @@ class SpouseDetailForm(forms.ModelForm):
             'spouse_city',
             'spouse_pob',
             'spouse_occupation',
+        ]
+
+# Next of kin details
+class NextKinDetailForm(forms.ModelForm):
+    class Meta:
+        model = NextKinDetail
+        fields = [
+            'nxtk_surname',
+            'nxtk_first_name',
+            'nxtk_initial_name',
+            'nxtk_national_id',
+            'nxtk_email',
+            'nxtk_phone',
+            'nxtk_city',
+            'nxtk_pob',
         ]
