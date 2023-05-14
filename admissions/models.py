@@ -141,3 +141,11 @@ class EmergencyContactDetail(models.Model):
 
     def __str__(self):
         return "{}".format(self.first_high_school_name)
+
+class GamesDetail(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    games_and_sports = models.CharField(max_length=50)
+    games_representation = models.CharField(max_length=50)
+
+    def __str__(self):
+        return "{}".format(self.games_and_sports)
