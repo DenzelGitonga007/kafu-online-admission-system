@@ -14,4 +14,5 @@ urlpatterns = [
     path('clubs-details/', views.clubs_detail_view, name="clubs_details"), # clubs details
     path('other-institution-details/', views.other_instituition_detail_view, name="other_instituition_details"), # other institution details
     path('other-details/', views.other_detail_view, name="other_details"), # other details
+    path('file-details/', views.file_detail_view, name="file_details"), # file details
 ]

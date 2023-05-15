@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import PersonalDetailForm, ParentDetailForm, SpouseDetailForm, NextKinDetailForm, HighSchoolDetailForm, EmergencyContactDetailForm, GamesDetailForm, ClubsDetailForm, OtherInstitutionDetailForm, OtherDetailForm
-from .models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail, EmergencyContactDetail, GamesDetail, ClubsDetail, OtherInstitutionDetail, OtherDetail
+from django.http import HttpResponseRedirect
+from .forms import PersonalDetailForm, ParentDetailForm, SpouseDetailForm, NextKinDetailForm, HighSchoolDetailForm, EmergencyContactDetailForm, GamesDetailForm, ClubsDetailForm, OtherInstitutionDetailForm, OtherDetailForm, FileDetailForm
+from .models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail, EmergencyContactDetail, GamesDetail, ClubsDetail, OtherInstitutionDetail, OtherDetail, FileDetail
 from accounts.models import User
 
 # Personal details
@@ -198,10 +199,37 @@ def other_detail_view(request):
             other_instituition_detail.save()
             # Success message
             messages.success(request, "Your other details have been received successfully!\nNow upload your the required documents below")
-            return redirect('home')
+            return redirect('admissions:file_details')
         else:
             messages.error(request, 'There was an error while saving your other details. Please try again.')
     else:
         form = OtherDetailForm()
     context = {'form': form}
     return render(request, 'admissions/other_detail.html', context)
+
+# File details
+def file_detail_view(request):
+    user = request.user
+    if request.method == 'POST':
+        form = FileDetailForm(request.POST, request.FILES)
+        if form.is_valid():
+            # Get the uploaded file from the form
+            uploaded_file = form.save(commit=False)
+            uploaded_file.user = user
+            # Create a new UploadedFile object and save it to the database
+            # new_file = FileDetail(name=uploaded_file.name, file=uploaded_file)
+            # new_file.save()
+            uploaded_file.save()
+
+            # Redirect the user to a success page
+            # Success message
+            messages.success(request, "Your other details have been received successfully!\nNow upload your the required documents below")
+            # return HttpResponseRedirect('/file_uploaded/')
+            return redirect('home')
+        else:
+            messages.error(request, 'There was an error while saving your other details. Please try again.')
+
+    else:
+        form = FileDetailForm()
+    context = {'form': form}
+    return render(request, 'admissions/file_detail.html', context)
