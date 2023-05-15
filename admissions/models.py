@@ -203,3 +203,5 @@ class FileDetail(models.Model):
 
     def __str(self):
         return "{} {} {}".format(self.photo, self.medical, self.sporting)
+
+    

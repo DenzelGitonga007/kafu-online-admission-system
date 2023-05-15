@@ -32,9 +32,12 @@
         {% if request.user.personaldetail_set.exists %}
           <a class="btn btn-success btn-lg" href="{%  url 'admissions:personal_details' %}" role="button">Continue with the application process</a>
         <!-- <a class="btn btn-primary btn-lg" href="" role="button">View your progress</a> -->
+        {% elif request.user.personaldetail_set.exists and request.user.filedetail_set.exists %}
+          <a class="btn btn-success btn-lg" href="{%  url 'admissions:personal_details' %}" role="button">You have finished View the application process</a> 
         {% else %}
           <a class="btn btn-success btn-lg" href="{%  url 'admissions:personal_details' %}" role="button">Start the application process</a>
         {% endif %}
+
       {% else %}
         <a class="btn btn-success btn-lg d-inline-block" href="{% url 'login' %}" role="button">Login</a>
         <p class="d-inline-block mx-2">Or</p>
@@ -43,7 +46,7 @@
     </div>
   </div>
 <!-- End of jumbotron -->
-  {% if user.is_authenticated and request.user.personaldetail_set.exists %}
+  {% if user.is_authenticated and request.user.filedetail_set.exists %}
   <div class="container">
     <div class="row">
       <div class="col mx-auto">

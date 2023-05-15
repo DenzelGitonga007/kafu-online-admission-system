@@ -223,11 +223,11 @@ def file_detail_view(request):
 
             # Redirect the user to a success page
             # Success message
-            messages.success(request, "Your other details have been received successfully!\nNow upload your the required documents below")
+            messages.success(request, "Your files have been received successfully!")
             # return HttpResponseRedirect('/file_uploaded/')
             return redirect('home')
         else:
-            messages.error(request, 'There was an error while saving your other details. Please try again.')
+            messages.error(request, 'There was an error while saving your files. Please try again.')
 
     else:
         form = FileDetailForm()
