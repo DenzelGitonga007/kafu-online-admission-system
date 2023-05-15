@@ -12,4 +12,5 @@ urlpatterns = [
     path('emergency-contact-details/', views.emergency_contact_detail_view, name="emergency_contact_details"), # emergency contact details
     path('games-details/', views.games_detail_view, name="games_details"), # games details
     path('clubs-details/', views.clubs_detail_view, name="clubs_details"), # clubs details
+    path('other-institution-details/', views.other_instituition_detail_view, name="other_instituition_details"), # other institution details
 ]

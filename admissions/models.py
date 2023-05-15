@@ -161,3 +161,25 @@ class ClubsDetail(models.Model):
     
     def __str__(self):
         return "{}".format(self.first_club)
+
+# Other institution
+class OtherInstitutionDetail(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    # First institution
+    first_institution_name  = models.CharField(max_length=50)
+    first_institution_specialization  = models.CharField(max_length=50)
+    first_institution_qualification  = models.CharField(max_length=50)
+    
+    # Second Institution
+    second_institution_name  = models.CharField(max_length=50)
+    second_institution_specialization  = models.CharField(max_length=50)
+    second_institution_qualification  = models.CharField(max_length=50)
+    
+    # Third Institution
+    third_institution_name  = models.CharField(max_length=50)
+    third_institution_specialization  = models.CharField(max_length=50)
+    third_institution_qualification  = models.CharField(max_length=50)
+
+      
+    def __str__(self):
+        return "{}".format(self.first_institution_name)

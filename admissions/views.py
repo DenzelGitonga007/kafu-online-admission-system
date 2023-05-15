@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import PersonalDetailForm, ParentDetailForm, SpouseDetailForm, NextKinDetailForm, HighSchoolDetailForm, EmergencyContactDetailForm, GamesDetailForm, ClubsDetailForm
-from .models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail, EmergencyContactDetail, GamesDetail, ClubsDetail
+from .forms import PersonalDetailForm, ParentDetailForm, SpouseDetailForm, NextKinDetailForm, HighSchoolDetailForm, EmergencyContactDetailForm, GamesDetailForm, ClubsDetailForm, OtherInstitutionDetailForm
+from .models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail, EmergencyContactDetail, GamesDetail, ClubsDetail, OtherInstitutionDetail
 from accounts.models import User
 
 # Personal details
@@ -157,12 +157,32 @@ def clubs_detail_view(request):
             clubs_detail.user = user
             clubs_detail.save()
             # Success message
-            messages.success(request, "Your clubs details have been received successfully!\nNow fill in your clubs and societies details in the form below")
-            return redirect('home')
+            messages.success(request, "Your clubs details have been received successfully!\nNow fill in any other institution details in the form below")
+            return redirect('admissions:other_instituition_details')
         else:
             messages.error(request, 'There was an error while saving your clubs details. Please try again.')
     else:
         form = ClubsDetailForm()
     context = {'form': form}
     return render(request, 'admissions/clubs_detail.html', context)
+
+# Other institution
+@login_required
+def other_instituition_detail_view(request):
+    user = request.user
+    if request.method == 'POST':
+        form = OtherInstitutionDetailForm(request.POST)
+        if form.is_valid():
+            other_instituition_detail = form.save(commit=False)
+            other_instituition_detail.user = user
+            other_instituition_detail.save()
+            # Success message
+            messages.success(request, "Your other insititution details have been received successfully!\nNow fill in your clubs and societies details in the form below")
+            return redirect('home')
+        else:
+            messages.error(request, 'There was an error while saving your other institution details. Please try again.')
+    else:
+        form = OtherInstitutionDetailForm()
+    context = {'form': form}
+    return render(request, 'admissions/other_institution_detail.html', context)
     
