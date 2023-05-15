@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import PersonalDetailForm, ParentDetailForm, SpouseDetailForm, NextKinDetailForm, HighSchoolDetailForm, EmergencyContactDetailForm, GamesDetailForm, ClubsDetailForm, OtherInstitutionDetailForm
-from .models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail, EmergencyContactDetail, GamesDetail, ClubsDetail, OtherInstitutionDetail
+from .forms import PersonalDetailForm, ParentDetailForm, SpouseDetailForm, NextKinDetailForm, HighSchoolDetailForm, EmergencyContactDetailForm, GamesDetailForm, ClubsDetailForm, OtherInstitutionDetailForm, OtherDetailForm
+from .models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail, EmergencyContactDetail, GamesDetail, ClubsDetail, OtherInstitutionDetail, OtherDetail
 from accounts.models import User
 
 # Personal details
@@ -178,7 +178,7 @@ def other_instituition_detail_view(request):
             other_instituition_detail.save()
             # Success message
             messages.success(request, "Your other insititution details have been received successfully!\nNow fill in your clubs and societies details in the form below")
-            return redirect('home')
+            return redirect('admissions:other_details')
         else:
             messages.error(request, 'There was an error while saving your other institution details. Please try again.')
     else:
@@ -186,3 +186,22 @@ def other_instituition_detail_view(request):
     context = {'form': form}
     return render(request, 'admissions/other_institution_detail.html', context)
     
+# Other detail
+@login_required
+def other_detail_view(request):
+    user = request.user
+    if request.method == 'POST':
+        form = OtherDetailForm(request.POST)
+        if form.is_valid():
+            other_instituition_detail = form.save(commit=False)
+            other_instituition_detail.user = user
+            other_instituition_detail.save()
+            # Success message
+            messages.success(request, "Your other details have been received successfully!\nNow upload your the required documents below")
+            return redirect('home')
+        else:
+            messages.error(request, 'There was an error while saving your other details. Please try again.')
+    else:
+        form = OtherDetailForm()
+    context = {'form': form}
+    return render(request, 'admissions/other_detail.html', context)

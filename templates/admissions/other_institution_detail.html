@@ -35,7 +35,17 @@
                     <!-- The form itself -->
                     <form action="" method="POST">
                          <!-- The cross-site request forgery     -->
-                            {% csrf_token %}
+                        {% csrf_token %}
+                        <!-- To handle errors -->
+                        {% if form.errors %}
+                        <div class="alert alert-danger">
+                            {% for field in form %}
+                            {% for error in field.errors %}
+                                <strong>{{ field.label }}:</strong> {{ error }}
+                            {% endfor %}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
                         <h2 class="card-header" style="margin-top: 10px;">Other Institution/Qualification Details</h2>
                             <div class="card-body">
                                 <!-- The table for the different high schools attended -->

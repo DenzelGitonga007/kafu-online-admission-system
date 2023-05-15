@@ -35,6 +35,16 @@
                         <form action="" method="POST"> <!-- The route personal_details posts the details -->
                             <!-- The cross-site request forgery     -->
                             {% csrf_token %}
+                            <!-- To handle errors -->
+                            {% if form.errors %}
+                            <div class="alert alert-danger">
+                                {% for field in form %}
+                                {% for error in field.errors %}
+                                    <strong>{{ field.label }}:</strong> {{ error }}
+                                {% endfor %}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
                             <!-- Spouse details -->
                             <h2 class="card-header" style="margin-top: 10px;">Spouse's Details</h2>
                                 <br>

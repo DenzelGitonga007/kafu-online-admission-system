@@ -183,3 +183,23 @@ class OtherInstitutionDetail(models.Model):
       
     def __str__(self):
         return "{}".format(self.first_institution_name)
+
+# Other details
+class OtherDetail(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    physical_impairment  = models.CharField(max_length=50)
+    physical_impairment_details  = models.CharField(max_length=50)
+    other_information  = models.CharField(max_length=50)
+
+    def __str__(self):
+        return "{}".format(self.other_information)
+
+# Files
+class FileDetail(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    photo = models.ImageField()
+    medical = models.FileField()
+    sporting = models.FileField()
+
+    def __str(self):
+        return "{} {} {}".format(self.photo, self.medical, self.sporting)

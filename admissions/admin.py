@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail, HighSchoolDetail, EmergencyContactDetail, GamesDetail, ClubsDetail, OtherInstitutionDetail
+from .models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail, HighSchoolDetail, EmergencyContactDetail, GamesDetail, ClubsDetail, OtherInstitutionDetail, OtherDetail, FileDetail
 
 # To customize the Student display
 # Get the username for all details
@@ -44,7 +44,13 @@ class ClubsDetailAdmin(admin.ModelAdmin):
 class OtherInstitutionDetailAdmin(admin.ModelAdmin):
     list_display = (username, 'first_institution_name')
 
+# Other detail
+class OtherDetailAdmin(admin.ModelAdmin):
+    list_display = (username, 'other_information')
 
+# File detail
+class FileDetailAdmin(admin.ModelAdmin):
+    list_display = (username, 'photo')
 
 # Register
 admin.site.register(PersonalDetail, PersonalDetailAdmin) # Personal details
@@ -55,4 +61,6 @@ admin.site.register(HighSchoolDetail, HighSchoolDetailAdmin) # High School detai
 admin.site.register(EmergencyContactDetail, EmergencyContactDetailAdmin) # Emergency Contact details
 admin.site.register(GamesDetail, GamesDetailAdmin)# Games details
 admin.site.register(ClubsDetail, ClubsDetailAdmin)# Clubs details
+admin.site.register(OtherDetail, OtherDetailAdmin)# Other Institution details
 admin.site.register(OtherInstitutionDetail, OtherInstitutionDetailAdmin)# Other Institution details
+admin.site.register(FileDetail, FileDetailAdmin)# File details
