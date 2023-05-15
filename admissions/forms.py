@@ -1,5 +1,5 @@
 from django import forms
-from .models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail, HighSchoolDetail, EmergencyContactDetail,GamesDetail
+from .models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail, HighSchoolDetail, EmergencyContactDetail, GamesDetail, ClubsDetail
 
 # Personal details
 class PersonalDetailForm(forms.ModelForm):
@@ -137,3 +137,13 @@ class GamesDetailForm(forms.ModelForm):
             'games_and_sports',
             'games_representation',
         ]
+
+# Clubs
+class ClubsDetailForm(forms.ModelForm):
+    class Meta:
+        model = ClubsDetail
+        fields = [
+            'first_club',
+            'second_club',
+            'third_club',
+    ]

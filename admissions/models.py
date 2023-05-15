@@ -142,6 +142,7 @@ class EmergencyContactDetail(models.Model):
     def __str__(self):
         return "{}".format(self.first_high_school_name)
 
+# Games
 class GamesDetail(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     games_and_sports = models.CharField(max_length=50)
@@ -149,3 +150,14 @@ class GamesDetail(models.Model):
 
     def __str__(self):
         return "{}".format(self.games_and_sports)
+
+# Clubs
+class ClubsDetail(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    first_club  = models.CharField(max_length=50)
+    second_club  = models.CharField(max_length=50)
+    third_club  = models.CharField(max_length=50)
+
+    
+    def __str__(self):
+        return "{}".format(self.first_club)

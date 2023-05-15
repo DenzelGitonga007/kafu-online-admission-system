@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail, HighSchoolDetail, EmergencyContactDetail, GamesDetail
+from .models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail, HighSchoolDetail, EmergencyContactDetail, GamesDetail, ClubsDetail
 
 # To customize the Student display
 # Get the username for all details
@@ -36,6 +36,10 @@ class EmergencyContactDetailAdmin(admin.ModelAdmin):
 class GamesDetailAdmin(admin.ModelAdmin):
     list_display = (username, 'games_and_sports')
 
+# Clubs
+class ClubsDetailAdmin(admin.ModelAdmin):
+    list_display = (username, 'first_club')
+
 admin.site.register(PersonalDetail, PersonalDetailAdmin) # Personal details
 admin.site.register(ParentDetail, ParentDetailAdmin) # Parent details
 admin.site.register(SpouseDetail, SpouseDetailAdmin) # Spouse details
@@ -43,3 +47,4 @@ admin.site.register(NextKinDetail, NxtkDetailAdmin) # Spouse details
 admin.site.register(HighSchoolDetail, HighSchoolDetailAdmin) # High School details
 admin.site.register(EmergencyContactDetail, EmergencyContactDetailAdmin) # Emergency Contact details
 admin.site.register(GamesDetail, GamesDetailAdmin)# Games details
+admin.site.register(ClubsDetail, ClubsDetailAdmin)# Games details

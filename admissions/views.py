@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import PersonalDetailForm, ParentDetailForm, SpouseDetailForm, NextKinDetailForm, HighSchoolDetailForm, EmergencyContactDetailForm, GamesDetailForm
-from .models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail, EmergencyContactDetail, GamesDetail
+from .forms import PersonalDetailForm, ParentDetailForm, SpouseDetailForm, NextKinDetailForm, HighSchoolDetailForm, EmergencyContactDetailForm, GamesDetailForm, ClubsDetailForm
+from .models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail, EmergencyContactDetail, GamesDetail, ClubsDetail
 from accounts.models import User
 
 # Personal details
@@ -138,10 +138,31 @@ def games_detail_view(request):
             games_detail.save()
             # Success message
             messages.success(request, "Your high school details have been received successfully!\nNow fill in your clubs and societies details in the form below")
-            return redirect('home')
+            return redirect('admissions:clubs_details')
         else:
             messages.error(request, 'There was an error while saving your games details. Please try again.')
     else:
         form = GamesDetailForm()
     context = {'form': form}
     return render(request, 'admissions/games_detail.html', context)
+
+# Clubs and societies
+@login_required
+def clubs_detail_view(request):
+    user = request.user
+    if request.method == 'POST':
+        form = ClubsDetailForm(request.POST)
+        if form.is_valid():
+            clubs_detail = form.save(commit=False)
+            clubs_detail.user = user
+            clubs_detail.save()
+            # Success message
+            messages.success(request, "Your clubs details have been received successfully!\nNow fill in your clubs and societies details in the form below")
+            return redirect('home')
+        else:
+            messages.error(request, 'There was an error while saving your clubs details. Please try again.')
+    else:
+        form = ClubsDetailForm()
+    context = {'form': form}
+    return render(request, 'admissions/clubs_detail.html', context)
+    
