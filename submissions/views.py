@@ -3,19 +3,19 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 from admissions.models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail, EmergencyContactDetail, HighSchoolDetail, GamesDetail, ClubsDetail, OtherInstitutionDetail, OtherDetail, FileDetail
-from .forms import ViewPersonalDetailForm, ViewParentDetailForm, ViewSpouseDetailForm, ViewNextKinDetailForm, ViewEmergencyContactDetailForm, ViewHighSchoolDetailForm, ViewGamesDetailForm, ViewClubsDetailForm, ViewOtherInstitutionDetailForm
+from .forms import ViewPersonalDetailForm, ViewParentDetailForm, ViewSpouseDetailForm, ViewNextKinDetailForm, ViewEmergencyContactDetailForm, ViewHighSchoolDetailForm, ViewGamesDetailForm, ViewClubsDetailForm, ViewOtherInstitutionDetailForm, ViewOtherDetailForm
 
 @login_required
 def view_submitted_details(request):
     user = request.user
 
-    other_institution_details = OtherInstitutionDetail.objects.filter(user=user)
+    
     other_details = OtherDetail.objects.filter(user=user)
     file_details = FileDetail.objects.filter(user=user)
 
     context = {
         
-        'other_institution_details': other_institution_details,
+        
         'other_details': other_details,
         'file_details': file_details,
         }
@@ -174,7 +174,7 @@ def view_clubs_details(request, user_id):
     }
     return render(request, 'submissions/view_clubs_details.html', context)
 
-# Clubs details
+# Other Institution details
 @login_required
 def view_other_institution_details(request, user_id):
     other_institution_detail = get_object_or_404(OtherInstitutionDetail, user_id=user_id)
@@ -185,10 +185,29 @@ def view_other_institution_details(request, user_id):
         if form.is_valid():
             form.save()
             # Success message
-            messages.success(request, "Your clubs and societies details have been updated successfully!!! See the details below")
+            messages.success(request, "Your other institution details have been updated successfully!!! See the details below")
             return redirect('submissions:view_other_institution_details', user_id=user_id)
 
     context = {
         'form': form
     }
     return render(request, 'submissions/view_other_institution_details.html', context)
+
+# Other details
+@login_required
+def view_other_details(request, user_id):
+    other_detail = get_object_or_404(OtherDetail, user_id=user_id)
+    form = ViewOtherDetailForm(instance=other_detail)
+
+    if request.method == 'POST':
+        form = ViewOtherDetailForm(request.POST, instance=other_detail)
+        if form.is_valid():
+            form.save()
+            # Success message
+            messages.success(request, "Your other details have been updated successfully!!! See the details below")
+            return redirect('submissions:view_other_details', user_id=user_id)
+
+    context = {
+        'form': form
+    }
+    return render(request, 'submissions/view_other_details.html', context)
