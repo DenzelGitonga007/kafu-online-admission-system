@@ -3,13 +3,13 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 from admissions.models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail, EmergencyContactDetail, HighSchoolDetail, GamesDetail, ClubsDetail, OtherInstitutionDetail, OtherDetail, FileDetail
-from .forms import ViewPersonalDetailForm, ViewParentDetailForm, ViewSpouseDetailForm, ViewNextKinDetailForm
+from .forms import ViewPersonalDetailForm, ViewParentDetailForm, ViewSpouseDetailForm, ViewNextKinDetailForm, ViewEmergencyContactDetailForm
 
 @login_required
 def view_submitted_details(request):
     user = request.user
 
-    next_kin_details = NextKinDetail.objects.filter(user=user)
+    
     emergency_details = EmergencyContactDetail.objects.filter(user=user)
     high_school_details = HighSchoolDetail.objects.filter(user=user)
     games_details = GamesDetail.objects.filter(user=user)
@@ -19,7 +19,7 @@ def view_submitted_details(request):
     file_details = FileDetail.objects.filter(user=user)
 
     context = {
-        'next_kin_details': next_kin_details,
+        
         'high_school_details': high_school_details,
         'games_details': games_details,
         'clubs_details': clubs_details,
@@ -105,3 +105,22 @@ def view_next_kin_details(request, user_id):
         'form': form
     }
     return render(request, 'submissions/view_next_kin_details.html', context)
+
+# Emergency contact details
+@login_required
+def view_emergency_contact_details(request, user_id):
+    emergency_contact_detail = get_object_or_404(EmergencyContactDetail, user_id=user_id)
+    form = ViewEmergencyContactDetailForm(instance=emergency_contact_detail)
+
+    if request.method == 'POST':
+        form = ViewEmergencyContactDetailForm(request.POST, instance=emergency_contact_detail)
+        if form.is_valid():
+            form.save()
+            # Success message
+            messages.success(request, "Your emergency contact details have been updated successfully!!! See the details below")
+            return redirect('submissions:view_emergency_contact_details', user_id=user_id)
+
+    context = {
+        'form': form
+    }
+    return render(request, 'submissions/view_emergency_contact_details.html', context)
