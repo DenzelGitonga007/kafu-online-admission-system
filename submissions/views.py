@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 from admissions.models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail, EmergencyContactDetail, HighSchoolDetail, GamesDetail, ClubsDetail, OtherInstitutionDetail, OtherDetail, FileDetail
-from .forms import ViewPersonalDetailForm, ViewParentDetailForm, ViewSpouseDetailForm, ViewNextKinDetailForm, ViewEmergencyContactDetailForm
+from .forms import ViewPersonalDetailForm, ViewParentDetailForm, ViewSpouseDetailForm, ViewNextKinDetailForm, ViewEmergencyContactDetailForm, ViewHighSchoolDetailForm
 
 @login_required
 def view_submitted_details(request):
@@ -124,3 +124,22 @@ def view_emergency_contact_details(request, user_id):
         'form': form
     }
     return render(request, 'submissions/view_emergency_contact_details.html', context)
+
+# High school details
+@login_required
+def view_high_school_details(request, user_id):
+    high_school_detail = get_object_or_404(HighSchoolDetail, user_id=user_id)
+    form = ViewHighSchoolDetailForm(instance=high_school_detail)
+
+    if request.method == 'POST':
+        form = ViewHighSchoolDetailForm(request.POST, instance=high_school_detail)
+        if form.is_valid():
+            form.save()
+            # Success message
+            messages.success(request, "Your high school details have been updated successfully!!! See the details below")
+            return redirect('submissions:view_high_school_details', user_id=user_id)
+
+    context = {
+        'form': form
+    }
+    return render(request, 'submissions/view_high_school_details.html', context)
