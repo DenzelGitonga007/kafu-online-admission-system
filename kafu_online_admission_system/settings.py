@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'accounts', # user authentication
     # Admission app
     'admissions', # form submissions
+    'submissions', # view the details submitted
 ]
 
 MIDDLEWARE = [
