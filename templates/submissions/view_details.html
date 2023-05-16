@@ -16,7 +16,7 @@
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a class="dropdown-item" href="{% url 'submissions:view_personal_details' user_id=user.id %}">Personal Details</a>
                   <a class="dropdown-item" href="{% url 'submissions:view_parent_details' user_id=user.id %}">Parent Details</a>
-                  <a class="dropdown-item" href="">Spouse Details</a>
+                  <a class="dropdown-item" href="{% url 'submissions:view_spouse_details' user_id=user.id %}">Spouse Details</a>
                   <!-- Add more links for other forms here -->
                 </div>
               </div>
