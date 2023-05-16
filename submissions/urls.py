@@ -12,5 +12,6 @@ urlpatterns = [
     path('spouse-details/<int:user_id>/', views.view_spouse_details, name="view_spouse_details"), # spouse details
     path('next-kin-details/<int:user_id>/', views.view_next_kin_details, name="view_next_kin_details"), # next of kin details
     path('emergency-contact-details/<int:user_id>/', views.view_emergency_contact_details, name="view_emergency_contact_details"), # next of kin details
-    path('high-school-details/<int:user_id>/', views.view_high_school_details, name="view_high_school_details"), # next of kin details
+    path('high-school-details/<int:user_id>/', views.view_high_school_details, name="view_high_school_details"), # high school details
+    path('games-and-sports-details/<int:user_id>/', views.view_games_details, name="view_games_details"), # games details
 ]

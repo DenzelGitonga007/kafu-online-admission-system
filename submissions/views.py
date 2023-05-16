@@ -3,15 +3,12 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 from admissions.models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail, EmergencyContactDetail, HighSchoolDetail, GamesDetail, ClubsDetail, OtherInstitutionDetail, OtherDetail, FileDetail
-from .forms import ViewPersonalDetailForm, ViewParentDetailForm, ViewSpouseDetailForm, ViewNextKinDetailForm, ViewEmergencyContactDetailForm, ViewHighSchoolDetailForm
+from .forms import ViewPersonalDetailForm, ViewParentDetailForm, ViewSpouseDetailForm, ViewNextKinDetailForm, ViewEmergencyContactDetailForm, ViewHighSchoolDetailForm, ViewGamesDetailForm
 
 @login_required
 def view_submitted_details(request):
     user = request.user
 
-    
-    emergency_details = EmergencyContactDetail.objects.filter(user=user)
-    high_school_details = HighSchoolDetail.objects.filter(user=user)
     games_details = GamesDetail.objects.filter(user=user)
     clubs_details = ClubsDetail.objects.filter(user=user)
     other_institution_details = OtherInstitutionDetail.objects.filter(user=user)
@@ -20,7 +17,6 @@ def view_submitted_details(request):
 
     context = {
         
-        'high_school_details': high_school_details,
         'games_details': games_details,
         'clubs_details': clubs_details,
         'other_institution_details': other_institution_details,
@@ -143,3 +139,22 @@ def view_high_school_details(request, user_id):
         'form': form
     }
     return render(request, 'submissions/view_high_school_details.html', context)
+
+# Games details
+@login_required
+def view_games_details(request, user_id):
+    game_detail = get_object_or_404(GamesDetail, user_id=user_id)
+    form = ViewGamesDetailForm(instance=game_detail)
+
+    if request.method == 'POST':
+        form = ViewGamesDetailForm(request.POST, instance=game_detail)
+        if form.is_valid():
+            form.save()
+            # Success message
+            messages.success(request, "Your games and sports details have been updated successfully!!! See the details below")
+            return redirect('submissions:view_games_details', user_id=user_id)
+
+    context = {
+        'form': form
+    }
+    return render(request, 'submissions/view_games_details.html', context)
