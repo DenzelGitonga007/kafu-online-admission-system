@@ -107,10 +107,9 @@
                                             <div class="col">
                                                 <label for="id_spouse_national_id" class="form-label">National ID</label>
                                                 <input type="number" class="form-control" name="spouse_national_id" pattern="[0-9]{8}" placeholder="National ID Number" value="{{ form.spouse_national_id.value|default:'' }}">
+                                                <!-- Alternative Fill -->
+                                                <div class="form-text">Type "N/A" if not applicable</div>
                                             </div>
-
-                                            <!-- Alternative Fill -->
-                                            <div class="form-text">Type "N/A" if not applicable</div>
                                                 
                                         </div>
                                     </div>    
@@ -173,10 +172,9 @@
                                                     <div class="col">
                                                         <label for="id_spouse_occupation" class="form-label">What is your Spouse's source of income?</label>
                                                         <textarea class="form-control" name="spouse_occupation" rows="2" placeholder="Please type here" value="{{ form.spouse_occupation.value|default:'' }}"></textarea>
+                                                        <!-- Alternative Fill -->
+                                                        <div class="form-text">Type "N/A" if not applicable</div>
                                                     </div>
-
-                                                    <!-- Alternative Fill -->
-                                                    <div class="form-text">Type "N/A" if not applicable</div>
                                                 
                                                 </div>
                                             </div>
