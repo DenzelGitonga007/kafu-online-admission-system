@@ -10,7 +10,7 @@
                 <form action="" method="POST">
                     {% csrf_token %}
                     <!-- To handle errors -->
-                    {% if personal_details.errors %}
+                    {% if form.errors %}
                     <div class="alert alert-danger">
                         {% for field in form %}
                         {% for error in field.errors %}
@@ -29,18 +29,18 @@
                                     <!-- Surname -->
                                     <div class="col">
                                         <label for="id_surname" class="form-label">Surname</label>
-                                        <input type="text" class="form-control" placeholder="Enter Your Surname" name="surname" value="{{ personal_details.surname }}">
+                                        <input type="text" class="form-control" placeholder="Enter Your Surname" name="surname" value="{{ form.surname.value }}">
                                     </div>
                                     
                                     <!-- First_name -->
                                     <div class="col">
                                         <label for="id_first_name" class="form-label">First Name</label>
-                                        <input type="text" class="form-control" placeholder="Enter Your First Name" name="first_name" value="{{ personal_details.first_name }}">
+                                        <input type="text" class="form-control" placeholder="Enter Your First Name" name="first_name" value="{{ form.first_name.value }}">
                                     </div>
                                     <!-- Last_name -->
                                     <div class="col">
                                         <label for="id_last_name" class="form-label">Last Name</label>
-                                        <input type="text" class="form-control" placeholder="Last Name" name="last_name" value="{{ personal_details.last_name }}">
+                                        <input type="text" class="form-control" placeholder="Last Name" name="last_name" value="{{ form.last_name.value }}">
                                     </div>
                                 </div>
                             </div>
@@ -50,7 +50,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <label for="id_dob" class="form-label">Date of Birth</label> 
-                                        <input type="date" class= "form-control" name="date" max="2007-01-01" value="{{ personal_details.date }}">
+                                        <input type="date" class= "form-control" name="date" max="2007-01-01" value="{{ form.date.value }}">
                                     </div>
                                 </div>
                             </div>
@@ -80,7 +80,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <label for="id_national_id" class="form-label">National ID</label>
-                                        <input type="number" class="form-control" name="national_id" pattern="[0-9]{8}" placeholder="National ID Number" value="{{ personal_details.national_id }}">
+                                        <input type="number" class="form-control" name="national_id" pattern="[0-9]{8}" placeholder="National ID Number" value="{{ form.national_id.value }}">
                                     </div>
                                 </div>
                             </div>
@@ -133,14 +133,14 @@
                                     <!-- Email -->
                                     <div class="col">
                                         <label for="id_email" class="form-label">Email</label>
-                                        <input type="email" class="form-control" placeholder="Enter your email" name="email" value="{{ personal_details.email }}">
+                                        <input type="email" class="form-control" placeholder="Enter your email" name="email" value="{{ form.email.value }}">
                                     </div>
                                     <!-- Phone -->
                                     <div class="col">
                                         <label for="id_phone" class="form-label">Phone Number</label>
                                         <div class="input-group">
                                             <span class="input-group-text">+254</span>
-                                            <input type="tel" class="form-control" placeholder="7000000**" name="phone" pattern="[0-9]{9}" value="{{ personal_details.phone }}">
+                                            <input type="tel" class="form-control" placeholder="7000000**" name="phone" pattern="[0-9]{9}" value="{{ form.phone.value }}">
                                         </div>
                                     </div>
                                 </div>
@@ -152,12 +152,12 @@
                                     <!-- City/Town -->
                                     <div class="col">
                                         <label for="id_city" class="form-label">City/Town</label>
-                                        <input type="text" class="form-control" placeholder="Which is your closest city/town" name="city" value="{{ personal_details.city }}">
+                                        <input type="text" class="form-control" placeholder="Which is your closest city/town" name="city" value="{{ form.city.value }}">
                                     </div>
                                     <!-- P.O BOX -->
                                     <div class="col">
                                         <label for="id_pob" class="form-label">P.O BOX</label>
-                                        <input type="text" class="form-control" placeholder="Enter your P.O BOX" name="pob" value="{{ personal_details.pob }}">
+                                        <input type="text" class="form-control" placeholder="Enter your P.O BOX" name="pob" value="{{ form.pob.value }}">
                                     </div>
                                 </div>
                             </div>
