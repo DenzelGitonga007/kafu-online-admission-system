@@ -1,11 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 from admissions.models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail, EmergencyContactDetail, HighSchoolDetail, GamesDetail, ClubsDetail, OtherInstitutionDetail, OtherDetail, FileDetail
-from .forms import ViewPersonalDetailForm
+from .forms import ViewPersonalDetailForm, ViewParentDetailForm
 
-
+@login_required
 def view_submitted_details(request):
     user = request.user
 
@@ -35,6 +35,9 @@ def view_submitted_details(request):
         }
     return render(request, 'submissions/view_details.html', context)
 
+
+# Personal details
+@login_required
 def view_personal_details(request, user_id):
     personal_detail = get_object_or_404(PersonalDetail, user_id=user_id)
     form = ViewPersonalDetailForm(instance=personal_detail)
@@ -51,3 +54,22 @@ def view_personal_details(request, user_id):
         'form': form
     }
     return render(request, 'submissions/view_personal_details.html', context)
+
+# Personal details
+@login_required
+def view_parent_details(request, user_id):
+    personal_detail = get_object_or_404(ParentDetail, user_id=user_id)
+    form = ViewParentDetailForm(instance=personal_detail)
+
+    if request.method == 'POST':
+        form = ViewParentDetailForm(request.POST, instance=parent_detail)
+        if form.is_valid():
+            form.save()
+            # Success message
+            messages.success(request, "Your parent details have been updated successfully!!! See the details below")
+            return redirect('submissions:view_parent_details', user_id=user_id)
+
+    context = {
+        'form': form
+    }
+    return render(request, 'submissions/view_parent_details.html', context)
