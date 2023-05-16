@@ -31,7 +31,7 @@
       {% if user.is_authenticated %}
         {% if request.user.personaldetail_set.exists %}
           {% if request.user.filedetail_set.exists %}
-            <a class="btn btn-success btn-lg" href="{%  url 'admissions:personal_details' %}" role="button">You have finished the application process</a> 
+            <a class="btn btn-success btn-lg" href="{%  url 'home' %}" role="button">You have finished the application process</a> 
           {% else %}
             <a class="btn btn-success btn-lg" href="{%  url 'admissions:personal_details' %}" role="button">Continue with the application process</a>
         <!-- <a class="btn btn-primary btn-lg" href="" role="button">View your progress</a> -->
