@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
 
 # Create your views here.
 from admissions.models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail, EmergencyContactDetail, HighSchoolDetail, GamesDetail, ClubsDetail, OtherInstitutionDetail, OtherDetail, FileDetail
@@ -42,6 +43,8 @@ def view_personal_details(request, user_id):
         form = ViewPersonalDetailForm(request.POST, instance=personal_detail)
         if form.is_valid():
             form.save()
+            # Success message
+            messages.success(request, "Your personal details have been updated successfully!!! See the details below")
             return redirect('submissions:view_personal_details', user_id=user_id)
 
     context = {
