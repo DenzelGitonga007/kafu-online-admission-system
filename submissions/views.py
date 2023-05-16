@@ -3,13 +3,12 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 from admissions.models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail, EmergencyContactDetail, HighSchoolDetail, GamesDetail, ClubsDetail, OtherInstitutionDetail, OtherDetail, FileDetail
-from .forms import ViewPersonalDetailForm, ViewParentDetailForm, ViewSpouseDetailForm, ViewNextKinDetailForm, ViewEmergencyContactDetailForm, ViewHighSchoolDetailForm, ViewGamesDetailForm
+from .forms import ViewPersonalDetailForm, ViewParentDetailForm, ViewSpouseDetailForm, ViewNextKinDetailForm, ViewEmergencyContactDetailForm, ViewHighSchoolDetailForm, ViewGamesDetailForm, ViewClubsDetailForm
 
 @login_required
 def view_submitted_details(request):
     user = request.user
 
-    games_details = GamesDetail.objects.filter(user=user)
     clubs_details = ClubsDetail.objects.filter(user=user)
     other_institution_details = OtherInstitutionDetail.objects.filter(user=user)
     other_details = OtherDetail.objects.filter(user=user)
@@ -17,7 +16,6 @@ def view_submitted_details(request):
 
     context = {
         
-        'games_details': games_details,
         'clubs_details': clubs_details,
         'other_institution_details': other_institution_details,
         'other_details': other_details,
@@ -158,3 +156,22 @@ def view_games_details(request, user_id):
         'form': form
     }
     return render(request, 'submissions/view_games_details.html', context)
+
+# Clubs details
+@login_required
+def view_clubs_details(request, user_id):
+    club_detail = get_object_or_404(ClubsDetail, user_id=user_id)
+    form = ViewClubsDetailForm(instance=club_detail)
+
+    if request.method == 'POST':
+        form = ViewClubsDetailForm(request.POST, instance=club_detail)
+        if form.is_valid():
+            form.save()
+            # Success message
+            messages.success(request, "Your clubs and societies details have been updated successfully!!! See the details below")
+            return redirect('submissions:view_clubs_details', user_id=user_id)
+
+    context = {
+        'form': form
+    }
+    return render(request, 'submissions/view_clubs_details.html', context)
