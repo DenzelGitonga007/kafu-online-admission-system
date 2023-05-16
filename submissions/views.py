@@ -10,7 +10,7 @@ def view_submitted_details(request):
     user = request.user
 
     # personal_details = PersonalDetail.objects.filter(user=user)
-    parent_details = ParentDetail.objects.filter(user=user)
+    # parent_details = ParentDetail.objects.filter(user=user)
     spouse_details = SpouseDetail.objects.filter(user=user)
     next_kin_details = NextKinDetail.objects.filter(user=user)
     emergency_details = EmergencyContactDetail.objects.filter(user=user)
@@ -23,7 +23,7 @@ def view_submitted_details(request):
 
     context = {
         # 'personal_details': personal_details,
-        'parent_details': parent_details,
+        # 'parent_details': parent_details,
         'spouse_details': spouse_details,
         'next_kin_details': next_kin_details,
         'high_school_details': high_school_details,
@@ -58,8 +58,8 @@ def view_personal_details(request, user_id):
 # Personal details
 @login_required
 def view_parent_details(request, user_id):
-    personal_detail = get_object_or_404(ParentDetail, user_id=user_id)
-    form = ViewParentDetailForm(instance=personal_detail)
+    parent_detail = get_object_or_404(ParentDetail, user_id=user_id)
+    form = ViewParentDetailForm(instance=parent_detail)
 
     if request.method == 'POST':
         form = ViewParentDetailForm(request.POST, instance=parent_detail)
