@@ -3,15 +3,12 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 from admissions.models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail, EmergencyContactDetail, HighSchoolDetail, GamesDetail, ClubsDetail, OtherInstitutionDetail, OtherDetail, FileDetail
-from .forms import ViewPersonalDetailForm, ViewParentDetailForm, ViewSpouseDetailForm
+from .forms import ViewPersonalDetailForm, ViewParentDetailForm, ViewSpouseDetailForm, ViewNextKinDetailForm
 
 @login_required
 def view_submitted_details(request):
     user = request.user
 
-    # personal_details = PersonalDetail.objects.filter(user=user)
-    # parent_details = ParentDetail.objects.filter(user=user)
-    spouse_details = SpouseDetail.objects.filter(user=user)
     next_kin_details = NextKinDetail.objects.filter(user=user)
     emergency_details = EmergencyContactDetail.objects.filter(user=user)
     high_school_details = HighSchoolDetail.objects.filter(user=user)
@@ -22,9 +19,6 @@ def view_submitted_details(request):
     file_details = FileDetail.objects.filter(user=user)
 
     context = {
-        # 'personal_details': personal_details,
-        # 'parent_details': parent_details,
-        'spouse_details': spouse_details,
         'next_kin_details': next_kin_details,
         'high_school_details': high_school_details,
         'games_details': games_details,
@@ -55,7 +49,7 @@ def view_personal_details(request, user_id):
     }
     return render(request, 'submissions/view_personal_details.html', context)
 
-# Personal details
+# Parent details
 @login_required
 def view_parent_details(request, user_id):
     parent_detail = get_object_or_404(ParentDetail, user_id=user_id)
@@ -74,7 +68,7 @@ def view_parent_details(request, user_id):
     }
     return render(request, 'submissions/view_parent_details.html', context)
 
-# Personal details
+# Spouse details
 @login_required
 def view_spouse_details(request, user_id):
     spouse_detail = get_object_or_404(SpouseDetail, user_id=user_id)
@@ -92,3 +86,22 @@ def view_spouse_details(request, user_id):
         'form': form
     }
     return render(request, 'submissions/view_spouse_details.html', context)
+
+# Next of kin details
+@login_required
+def view_next_kin_details(request, user_id):
+    next_kin_detail = get_object_or_404(NextKinDetail, user_id=user_id)
+    form = ViewNextKinDetailForm(instance=next_kin_detail)
+
+    if request.method == 'POST':
+        form = ViewNextKinDetailForm(request.POST, instance=next_kin_detail)
+        if form.is_valid():
+            form.save()
+            # Success message
+            messages.success(request, "Your next of kin details have been updated successfully!!! See the details below")
+            return redirect('submissions:view_next_kin_details', user_id=user_id)
+
+    context = {
+        'form': form
+    }
+    return render(request, 'submissions/view_next_kin_details.html', context)
