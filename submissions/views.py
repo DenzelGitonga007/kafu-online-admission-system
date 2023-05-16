@@ -3,20 +3,18 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 from admissions.models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail, EmergencyContactDetail, HighSchoolDetail, GamesDetail, ClubsDetail, OtherInstitutionDetail, OtherDetail, FileDetail
-from .forms import ViewPersonalDetailForm, ViewParentDetailForm, ViewSpouseDetailForm, ViewNextKinDetailForm, ViewEmergencyContactDetailForm, ViewHighSchoolDetailForm, ViewGamesDetailForm, ViewClubsDetailForm
+from .forms import ViewPersonalDetailForm, ViewParentDetailForm, ViewSpouseDetailForm, ViewNextKinDetailForm, ViewEmergencyContactDetailForm, ViewHighSchoolDetailForm, ViewGamesDetailForm, ViewClubsDetailForm, ViewOtherInstitutionDetailForm
 
 @login_required
 def view_submitted_details(request):
     user = request.user
 
-    clubs_details = ClubsDetail.objects.filter(user=user)
     other_institution_details = OtherInstitutionDetail.objects.filter(user=user)
     other_details = OtherDetail.objects.filter(user=user)
     file_details = FileDetail.objects.filter(user=user)
 
     context = {
         
-        'clubs_details': clubs_details,
         'other_institution_details': other_institution_details,
         'other_details': other_details,
         'file_details': file_details,
@@ -175,3 +173,22 @@ def view_clubs_details(request, user_id):
         'form': form
     }
     return render(request, 'submissions/view_clubs_details.html', context)
+
+# Clubs details
+@login_required
+def view_other_institution_details(request, user_id):
+    other_institution_detail = get_object_or_404(OtherInstitutionDetail, user_id=user_id)
+    form = ViewOtherInstitutionDetailForm(instance=other_institution_detail)
+
+    if request.method == 'POST':
+        form = ViewOtherInstitutionDetailForm(request.POST, instance=other_institution_detail)
+        if form.is_valid():
+            form.save()
+            # Success message
+            messages.success(request, "Your clubs and societies details have been updated successfully!!! See the details below")
+            return redirect('submissions:view_other_institution_details', user_id=user_id)
+
+    context = {
+        'form': form
+    }
+    return render(request, 'submissions/view_other_institution_details.html', context)
