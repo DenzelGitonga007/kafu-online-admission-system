@@ -3,20 +3,20 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 from admissions.models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail, EmergencyContactDetail, HighSchoolDetail, GamesDetail, ClubsDetail, OtherInstitutionDetail, OtherDetail, FileDetail
-from .forms import ViewPersonalDetailForm, ViewParentDetailForm, ViewSpouseDetailForm, ViewNextKinDetailForm, ViewEmergencyContactDetailForm, ViewHighSchoolDetailForm, ViewGamesDetailForm, ViewClubsDetailForm, ViewOtherInstitutionDetailForm, ViewOtherDetailForm
+from .forms import ViewPersonalDetailForm, ViewParentDetailForm, ViewSpouseDetailForm, ViewNextKinDetailForm, ViewEmergencyContactDetailForm, ViewHighSchoolDetailForm, ViewGamesDetailForm, ViewClubsDetailForm, ViewOtherInstitutionDetailForm, ViewOtherDetailForm, ViewFileDetailForm
 
 @login_required
 def view_submitted_details(request):
     user = request.user
 
     
-    other_details = OtherDetail.objects.filter(user=user)
+    
     file_details = FileDetail.objects.filter(user=user)
 
     context = {
         
         
-        'other_details': other_details,
+        
         'file_details': file_details,
         }
     return render(request, 'submissions/view_details.html', context)
@@ -211,3 +211,22 @@ def view_other_details(request, user_id):
         'form': form
     }
     return render(request, 'submissions/view_other_details.html', context)
+
+# File details
+@login_required
+def view_file_details(request, user_id):
+    file_detail = get_object_or_404(FileDetail, user_id=user_id)
+    form = ViewFileDetailForm(instance=file_detail)
+
+    if request.method == 'POST':
+        form = ViewFileDetailForm(request.POST, instance=file_detail)
+        if form.is_valid():
+            form.save()
+            # Success message
+            messages.success(request, "Your files have been updated successfully!!! See the details below")
+            return redirect('submissions:view_file_details', user_id=user_id)
+
+    context = {
+        'form': form
+    }
+    return render(request, 'submissions/view_file_details.html', context)

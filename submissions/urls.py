@@ -17,5 +17,6 @@ urlpatterns = [
     path('clubs-and-societies-details/<int:user_id>/', views.view_clubs_details, name="view_clubs_details"), # clubs details
     path('other-institution-details/<int:user_id>/', views.view_other_institution_details, name="view_other_institution_details"), # other institution details
     path('other-details/<int:user_id>/', views.view_other_details, name="view_other_details"), # other institution details
+    path('file-details/<int:user_id>/', views.view_file_details, name="view_file_details"), # file details
 
 ]
