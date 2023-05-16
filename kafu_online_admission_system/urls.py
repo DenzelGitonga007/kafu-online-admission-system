@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('accounts.urls')), # user authentication
     path('admissions/', include('admissions.urls')), # form submissions
+    path('submissions/', include('submissions.urls')), # submitted details
 ]

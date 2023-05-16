@@ -1,0 +1,30 @@
+{% extends 'common/base.html' %}
+{% block title %}View Details{% endblock %}
+{% block content %}
+<!-- View details -->
+<div class="container">
+    <div class="row">
+      <div class="col mx-auto">
+        <div class="card">
+          <div class="card-body text-center">
+            <h5 class="card-title">Select the form You wish to view</h5>
+            <p class="card-text">Click below</p>
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Select a Form
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="{% url 'submissions:view_personal_details' user_id=user.id %}">Personal Details</a>
+                  <a class="dropdown-item" href="">Parent Details</a>
+                  <a class="dropdown-item" href="">Spouse Details</a>
+                  <!-- Add more links for other forms here -->
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+{% endblock %}
