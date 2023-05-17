@@ -41,6 +41,7 @@
                     {% endif %}
                     <!-- Personal Details -->
                     <h2 class="card-header" style="margin-top: 10px;">Personal details</h2>
+                    <a href="{% url 'forms_downloads:download_personal_details' user_id=user.id %}">Download</a>
                     <br>
                         <!-- Name -->
                         <div class="card-header">Your Name</div>
