@@ -40,8 +40,13 @@
                     </div>
                     {% endif %}
                     <!-- Personal Details -->
-                    <h2 class="card-header" style="margin-top: 10px;">Personal details</h2>
-                    <a href="{% url 'forms_downloads:download_personal_details' user_id=user.id %}">Download</a>
+                    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                        <h2 style="margin: 0;">Personal details</h2>
+                        <a class="btn btn-success" href="{% url 'forms_downloads:download_personal_details' user_id=user.id %}" style="margin-left: 10px;">
+                            Download Form 
+                             <i class="fa fa-save" style="font-size:24px;"></i>
+                        </a>
+                    </div>
                     <br>
                         <!-- Name -->
                         <div class="card-header">Your Name</div>
