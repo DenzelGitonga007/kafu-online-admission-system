@@ -1,25 +1,29 @@
-from django.shortcuts import render
-
-# Create your views here.
-from django.http import Http404, HttpResponse
-from django.shortcuts import get_object_or_404
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, render
 from django.conf import settings
 import os
+from reportlab.pdfgen import canvas
 
 from admissions.models import PersonalDetail
 
-from django.template.loader import get_template
-
 def download_personal_details(request, user_id):
     # Retrieve the personal details form for the user
-    personal_details = PersonalDetail.objects.get(user_id=user_id)
+    personal_details = get_object_or_404(PersonalDetail, user_id=user_id)
 
-    # Generate a download file using a template
-    template = get_template('forms_downloads/personal_details_template.txt')
-    download_file = template.render({'personal_details': personal_details})
+    # Create a PDF file using ReportLab
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="personal_details.pdf"'
 
-    # Create an HTTP response with the download file
-    response = HttpResponse(download_file, content_type='text/plain')
-    response['Content-Disposition'] = 'attachment; filename="personal_details.txt"'
+    # Create the PDF document
+    p = canvas.Canvas(response)
+
+    # Write the form data to the PDF document
+    p.drawString(100, 700, f"First Name: {personal_details.first_name}")
+    p.drawString(100, 670, f"Last Name: {personal_details.last_name}")
+    # Add more fields as needed
+
+    # Save the PDF document
+    p.showPage()
+    p.save()
+
     return response
-
