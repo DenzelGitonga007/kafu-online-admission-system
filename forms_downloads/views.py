@@ -6,7 +6,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from io import BytesIO
 
-from admissions.models import PersonalDetail, ParentDetail, SpouseDetail
+from admissions.models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail
 
 # Download personal details
 def download_personal_details(request, user_id):
@@ -306,3 +306,91 @@ def download_spouse_details(request, user_id):
     response.write(buffer.getvalue())
 
     return response
+
+# End of Spouse details
+
+# Download next of kin details
+def download_next_kin_details(request, user_id):
+    next_kin_details = NextKinDetail.objects.get(user_id=user_id)
+
+    # Create a BytesIO buffer to receive the PDF data
+    buffer = BytesIO()
+
+    # Create the PDF object, using the buffer as its "file"
+    p = canvas.Canvas(buffer, pagesize=letter)
+
+    # Set the font and font size for the PDF
+    p.setFont("Helvetica", 12)
+
+    # Draw the school logo in the header
+    logo_path = 'static/images/logos/KAFU_LOGO.jpg'  # Replace with the actual path to the school logo
+    logo_width = 100
+    logo_height = 100
+    logo_x = (letter[0] - logo_width) / 2  # Center horizontally
+    logo_y = 650  # Adjust the vertical position as desired
+    p.drawImage(logo_path, logo_x, logo_y, width=logo_width, height=logo_height)
+
+    # Set the header text
+    text_y = 635
+    p.setFont("Helvetica-Bold", 16)
+    p.drawString(200, text_y, "KAIMOSI FRIENDS UNIVERSITY")
+    p.setFont("Helvetica-Bold", 12)
+    p.drawString(270, text_y-20, "Online Admission")
+
+    # The student
+    text_y = 570  # Adjust the vertical position as desired
+    p.setFont("Helvetica-Bold", 14)
+    p.drawString(50, text_y, "Username: {}".format(next_kin_details.user.username))
+    p.setFont("Helvetica", 12)
+    p.drawString(50, text_y - 20, "Next of Kin Details Form")
+
+
+    # Write the personal details to the PDF
+    # Next of Kin
+    # Name section heading
+    text_y -= 70  # Adjust the vertical position as desired
+    p.setFont("Helvetica-Bold", 14)
+    p.drawString(50, text_y, "Spouse")
+    p.setFont("Helvetica", 12)
+    p.drawString(50, text_y - 20, "Surname: {}              First Name: {}          Initial Name: {}".format(next_kin_details.nxtk_surname, next_kin_details.nxtk_first_name, next_kin_details.nxtk_initial_name))
+
+    # Nationality section heading
+    text_y -= 70  # Adjust the vertical position as desired
+    p.setFont("Helvetica-Bold", 14)
+    p.drawString(50, text_y, "Nationality")
+    p.setFont("Helvetica", 12)
+    p.drawString(50, text_y - 20, "National ID: {}              ".format(next_kin_details.nxtk_national_id))
+    
+    # Address section heading
+    text_y -= 70  # Adjust the vertical position as desired
+    p.setFont("Helvetica-Bold", 14)
+    p.drawString(50, text_y, "Address")
+    p.setFont("Helvetica", 12)
+    p.drawString(50, text_y - 20, "Email: {}                Phone: {}".format(next_kin_details.nxtk_email, next_kin_details.nxtk_phone))
+
+    # Location section heading
+    text_y -= 70  # Adjust the vertical position as desired
+    p.setFont("Helvetica-Bold", 14)
+    p.drawString(50, text_y, "Location")
+    p.setFont("Helvetica", 12)
+    p.drawString(50, text_y - 20, "City: {}             P.O BOX: {}".format(next_kin_details.nxtk_city, next_kin_details.nxtk_pob))
+
+    # End of Next of Kin
+
+    # Save the PDF to the buffer
+    p.showPage()
+    p.save()
+
+    # Set the buffer's position back to the beginning
+    buffer.seek(0)
+
+    # Set the response headers for the PDF file
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="Next of Kin Details.pdf"'
+
+    # Write the buffer's content to the response
+    response.write(buffer.getvalue())
+
+    return response
+
+# End of next of kin details
