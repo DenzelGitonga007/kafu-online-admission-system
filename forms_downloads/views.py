@@ -6,7 +6,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from io import BytesIO
 
-from admissions.models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail, EmergencyContactDetail
+from admissions.models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail, EmergencyContactDetail, HighSchoolDetail
 
 # Download personal details
 def download_personal_details(request, user_id):
@@ -482,8 +482,8 @@ def download_emergency_contact_details(request, user_id):
 # End of emergency contact details
 
 # Download High School details
-def download_highschool_details(request, user_id):
-    emergency_contact_details = EmergencyContactDetail.objects.get(user_id=user_id)
+def download_high_school_details(request, user_id):
+    high_school_details = HighSchoolDetail.objects.get(user_id=user_id)
 
     # Create a BytesIO buffer to receive the PDF data
     buffer = BytesIO()
@@ -512,42 +512,60 @@ def download_highschool_details(request, user_id):
     # The student
     text_y = 570  # Adjust the vertical position as desired
     p.setFont("Helvetica-Bold", 14)
-    p.drawString(50, text_y, "Username: {}".format(emergency_contact_details.user.username))
+    p.drawString(50, text_y, "Username: {}".format(high_school_details.user.username))
     p.setFont("Helvetica", 12)
-    p.drawString(50, text_y - 20, "Emergency Contact Details Form")
+    p.drawString(50, text_y - 20, "High School Details Form")
 
 
     # Write the personal details to the PDF
-    # Next of Kin
+    # First High School
     # Name section heading
     text_y -= 70  # Adjust the vertical position as desired
     p.setFont("Helvetica-Bold", 14)
-    p.drawString(50, text_y, "Emergency Contact")
+    p.drawString(50, text_y, "First High School")
     p.setFont("Helvetica", 12)
-    p.drawString(50, text_y - 20, "Surname: {}              First Name: {}          Initial Name: {}".format(emergency_contact_details.emerge_con_surname, emergency_contact_details.emerge_con_first_name, emergency_contact_details.emerge_con_initial_name))
+    p.drawString(50, text_y - 20, "Name: {}              Address: {}          Town: {}".format(high_school_details.first_high_school_name, high_school_details.first_high_school_address, high_school_details.first_high_school_town))
 
-    # Nationality section heading
+    # Date section heading
     text_y -= 70  # Adjust the vertical position as desired
     p.setFont("Helvetica-Bold", 14)
-    p.drawString(50, text_y, "Nationality")
+    p.drawString(50, text_y, "Dates of Learning")
     p.setFont("Helvetica", 12)
-    p.drawString(50, text_y - 20, "National ID: {}              ".format(emergency_contact_details.emerge_con_national_id))
-    
-    # Address section heading
+    p.drawString(50, text_y - 20, "From: {}             To: {}".format(high_school_details.first_high_school_from_date, high_school_details.first_high_school_to_date))
+
+    # End of first high school
+
+    # Second High School
     text_y -= 70  # Adjust the vertical position as desired
     p.setFont("Helvetica-Bold", 14)
-    p.drawString(50, text_y, "Address")
+    p.drawString(50, text_y, "Second High School")
     p.setFont("Helvetica", 12)
-    p.drawString(50, text_y - 20, "Email: {}                Phone: {}".format(emergency_contact_details.emerge_con_email, emergency_contact_details.emerge_con_phone))
+    p.drawString(50, text_y - 20, "Name: {}              Address: {}          Town: {}".format(high_school_details.second_high_school_name, high_school_details.second_high_school_address, high_school_details.second_high_school_town))
 
-    # Location section heading
+    # Date section heading
     text_y -= 70  # Adjust the vertical position as desired
     p.setFont("Helvetica-Bold", 14)
-    p.drawString(50, text_y, "Location")
+    p.drawString(50, text_y, "Dates of Learning")
     p.setFont("Helvetica", 12)
-    p.drawString(50, text_y - 20, "City: {}             P.O BOX: {}".format(emergency_contact_details.emerge_con_city, emergency_contact_details.emerge_con_pob))
+    p.drawString(50, text_y - 20, "From: {}             To: {}".format(high_school_details.second_high_school_from_date, high_school_details.second_high_school_to_date))
 
-    # End of Next of Kin
+    # End of second high school
+
+    # Third high school
+    text_y -= 70  # Adjust the vertical position as desired
+    p.setFont("Helvetica-Bold", 14)
+    p.drawString(50, text_y, "Third High School")
+    p.setFont("Helvetica", 12)
+    p.drawString(50, text_y - 20, "Name: {}              Address: {}          Town: {}".format(high_school_details.third_high_school_name, high_school_details.third_high_school_address, high_school_details.third_high_school_town))
+
+    # Date section heading
+    text_y -= 70  # Adjust the vertical position as desired
+    p.setFont("Helvetica-Bold", 14)
+    p.drawString(50, text_y, "Dates of Learning")
+    p.setFont("Helvetica", 12)
+    p.drawString(50, text_y - 20, "From: {}             To: {}".format(high_school_details.third_high_school_from_date, high_school_details.third_high_school_to_date))
+
+    # End of first high school
 
     # Save the PDF to the buffer
     p.showPage()
@@ -558,7 +576,7 @@ def download_highschool_details(request, user_id):
 
     # Set the response headers for the PDF file
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="Emergency Contact Details.pdf"'
+    response['Content-Disposition'] = 'attachment; filename="High School Details.pdf"'
 
     # Write the buffer's content to the response
     response.write(buffer.getvalue())
