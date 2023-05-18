@@ -9,4 +9,5 @@ urlpatterns = [
     path('download-next-kin-details/<int:user_id>/', views.download_next_kin_details, name='download_next_kin_details'), # personal details download
     path('download-emergency-contact_details/<int:user_id>/', views.download_emergency_contact_details, name='download_emergency_contact_details'), # emergency contact details download
     path('download-high-school-details/<int:user_id>/', views.download_high_school_details, name='download_high_school_details'), # high school details download
+    path('download-games-and-sport-details/<int:user_id>/', views.download_games_details, name='download_games_details'), # games and sports details download
 ]

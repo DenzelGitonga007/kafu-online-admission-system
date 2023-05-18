@@ -6,7 +6,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from io import BytesIO
 
-from admissions.models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail, EmergencyContactDetail, HighSchoolDetail
+from admissions.models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail, EmergencyContactDetail, HighSchoolDetail, GamesDetail
 
 # Download personal details
 def download_personal_details(request, user_id):
@@ -584,3 +584,183 @@ def download_high_school_details(request, user_id):
     return response
 
 # End of High School details
+
+
+# Download Games and Sports details
+def download_games_details(request, user_id):
+    games_details = GamesDetail.objects.get(user_id=user_id)
+
+    # Create a BytesIO buffer to receive the PDF data
+    buffer = BytesIO()
+
+    # Create the PDF object, using the buffer as its "file"
+    p = canvas.Canvas(buffer, pagesize=letter)
+
+    # Set the font and font size for the PDF
+    p.setFont("Helvetica", 12)
+
+    # Draw the school logo in the header
+    logo_path = 'static/images/logos/KAFU_LOGO.jpg'  # Replace with the actual path to the school logo
+    logo_width = 100
+    logo_height = 100
+    logo_x = (letter[0] - logo_width) / 2  # Center horizontally
+    logo_y = 650  # Adjust the vertical position as desired
+    p.drawImage(logo_path, logo_x, logo_y, width=logo_width, height=logo_height)
+
+    # Set the header text
+    text_y = 635
+    p.setFont("Helvetica-Bold", 16)
+    p.drawString(200, text_y, "KAIMOSI FRIENDS UNIVERSITY")
+    p.setFont("Helvetica-Bold", 12)
+    p.drawString(270, text_y-20, "Online Admission")
+
+    # The student
+    text_y = 570  # Adjust the vertical position as desired
+    p.setFont("Helvetica-Bold", 14)
+    p.drawString(50, text_y, "Username: {}".format(games_details.user.username))
+    p.setFont("Helvetica", 12)
+    p.drawString(50, text_y - 20, "Games Details Form")
+
+
+    # Write the personal details to the PDF
+    # First High School
+    # Name section heading
+    text_y -= 70  # Adjust the vertical position as desired
+    p.setFont("Helvetica-Bold", 14)
+    p.drawString(50, text_y, "Games and Sports")
+    p.setFont("Helvetica", 12)
+    p.drawString(50, text_y - 20, "Played: {}".format(games_details.games_and_sports))
+
+    # Date section heading
+    text_y -= 70  # Adjust the vertical position as desired
+    p.setFont("Helvetica-Bold", 14)
+    p.drawString(50, text_y, "Games Representations")
+    p.setFont("Helvetica", 12)
+    p.drawString(50, text_y - 20, "Represented: {}".format(games_details.games_representation))
+
+    # End of games and sports
+
+    # Save the PDF to the buffer
+    p.showPage()
+    p.save()
+
+    # Set the buffer's position back to the beginning
+    buffer.seek(0)
+
+    # Set the response headers for the PDF file
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="Games and Sports Details.pdf"'
+
+    # Write the buffer's content to the response
+    response.write(buffer.getvalue())
+
+    return response
+
+# End of Games and Sport details
+
+
+# Download Clubs and Societies
+
+def download_clubs_details(request, user_id):
+    high_school_details = HighSchoolDetail.objects.get(user_id=user_id)
+
+    # Create a BytesIO buffer to receive the PDF data
+    buffer = BytesIO()
+
+    # Create the PDF object, using the buffer as its "file"
+    p = canvas.Canvas(buffer, pagesize=letter)
+
+    # Set the font and font size for the PDF
+    p.setFont("Helvetica", 12)
+
+    # Draw the school logo in the header
+    logo_path = 'static/images/logos/KAFU_LOGO.jpg'  # Replace with the actual path to the school logo
+    logo_width = 100
+    logo_height = 100
+    logo_x = (letter[0] - logo_width) / 2  # Center horizontally
+    logo_y = 650  # Adjust the vertical position as desired
+    p.drawImage(logo_path, logo_x, logo_y, width=logo_width, height=logo_height)
+
+    # Set the header text
+    text_y = 635
+    p.setFont("Helvetica-Bold", 16)
+    p.drawString(200, text_y, "KAIMOSI FRIENDS UNIVERSITY")
+    p.setFont("Helvetica-Bold", 12)
+    p.drawString(270, text_y-20, "Online Admission")
+
+    # The student
+    text_y = 570  # Adjust the vertical position as desired
+    p.setFont("Helvetica-Bold", 14)
+    p.drawString(50, text_y, "Username: {}".format(high_school_details.user.username))
+    p.setFont("Helvetica", 12)
+    p.drawString(50, text_y - 20, "High School Details Form")
+
+
+    # Write the personal details to the PDF
+    # First High School
+    # Name section heading
+    text_y -= 70  # Adjust the vertical position as desired
+    p.setFont("Helvetica-Bold", 14)
+    p.drawString(50, text_y, "First High School")
+    p.setFont("Helvetica", 12)
+    p.drawString(50, text_y - 20, "Name: {}              Address: {}          Town: {}".format(high_school_details.first_high_school_name, high_school_details.first_high_school_address, high_school_details.first_high_school_town))
+
+    # Date section heading
+    text_y -= 70  # Adjust the vertical position as desired
+    p.setFont("Helvetica-Bold", 14)
+    p.drawString(50, text_y, "Dates of Learning")
+    p.setFont("Helvetica", 12)
+    p.drawString(50, text_y - 20, "From: {}             To: {}".format(high_school_details.first_high_school_from_date, high_school_details.first_high_school_to_date))
+
+    # End of first high school
+
+    # Second High School
+    text_y -= 70  # Adjust the vertical position as desired
+    p.setFont("Helvetica-Bold", 14)
+    p.drawString(50, text_y, "Second High School")
+    p.setFont("Helvetica", 12)
+    p.drawString(50, text_y - 20, "Name: {}              Address: {}          Town: {}".format(high_school_details.second_high_school_name, high_school_details.second_high_school_address, high_school_details.second_high_school_town))
+
+    # Date section heading
+    text_y -= 70  # Adjust the vertical position as desired
+    p.setFont("Helvetica-Bold", 14)
+    p.drawString(50, text_y, "Dates of Learning")
+    p.setFont("Helvetica", 12)
+    p.drawString(50, text_y - 20, "From: {}             To: {}".format(high_school_details.second_high_school_from_date, high_school_details.second_high_school_to_date))
+
+    # End of second high school
+
+    # Third high school
+    text_y -= 70  # Adjust the vertical position as desired
+    p.setFont("Helvetica-Bold", 14)
+    p.drawString(50, text_y, "Third High School")
+    p.setFont("Helvetica", 12)
+    p.drawString(50, text_y - 20, "Name: {}              Address: {}          Town: {}".format(high_school_details.third_high_school_name, high_school_details.third_high_school_address, high_school_details.third_high_school_town))
+
+    # Date section heading
+    text_y -= 70  # Adjust the vertical position as desired
+    p.setFont("Helvetica-Bold", 14)
+    p.drawString(50, text_y, "Dates of Learning")
+    p.setFont("Helvetica", 12)
+    p.drawString(50, text_y - 20, "From: {}             To: {}".format(high_school_details.third_high_school_from_date, high_school_details.third_high_school_to_date))
+
+    # End of first high school
+
+    # Save the PDF to the buffer
+    p.showPage()
+    p.save()
+
+    # Set the buffer's position back to the beginning
+    buffer.seek(0)
+
+    # Set the response headers for the PDF file
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="High School Details.pdf"'
+
+    # Write the buffer's content to the response
+    response.write(buffer.getvalue())
+
+    return response
+
+# End of High School details
+

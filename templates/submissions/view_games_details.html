@@ -42,7 +42,13 @@
                             {% endfor %}
                         </div>
                         {% endif %}
-                        <h2 class="card-header" style="margin-top: 10px;">Games and Sports Details</h2>
+                        <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                            <h2 style="margin: 0;">Games and Sports details</h2>
+                            <a class="btn btn-success" href="{% url 'forms_downloads:download_games_details' user_id=user.id %}" style="margin-left: 10px;">
+                                Download Form 
+                                 <i class="fa fa-save" style="font-size:24px;"></i>
+                            </a>
+                        </div>
                         <br>
                             <div class="card-header">Which games and sports did you participate in?</div>
                                 <div class="card-body">
