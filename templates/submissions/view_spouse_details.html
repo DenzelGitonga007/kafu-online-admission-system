@@ -46,7 +46,13 @@
                             </div>
                             {% endif %}
                             <!-- Spouse details -->
-                            <h2 class="card-header" style="margin-top: 10px;">Spouse's Details</h2>
+                            <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                                <h2 style="margin: 0;">Spouse details</h2>
+                                <a class="btn btn-success" href="{% url 'forms_downloads:download_spouse_details' user_id=user.id %}" style="margin-left: 10px;">
+                                    Download Form 
+                                     <i class="fa fa-save" style="font-size:24px;"></i>
+                                </a>
+                            </div>
                                 <br>
                                 <!-- Marital status -->
                                 <div class="card-header">Marital status</div>
