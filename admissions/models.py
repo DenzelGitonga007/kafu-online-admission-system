@@ -24,13 +24,13 @@ class PersonalDetail(models.Model):
 
     def __str__(self):
         return "{} {} {}".format(self.user.username, self.first_name, self.email)
-    try:
-        personal_details = PersonalDetail.objects.filter(user=user)
-        personal_details.delete()
-        user.delete()
-        # Or user.is_active = False, user.save() if you want to disable the user account instead of deleting it.
-    except Exception as e:
-        print(e)
+    # try:
+    #     personal_details = PersonalDetail.objects.filter(user=user)
+    #     personal_details.delete()
+    #     user.delete()
+    #     # Or user.is_active = False, user.save() if you want to disable the user account instead of deleting it.
+    # except Exception as e:
+    #     print(e)
 
 class ParentDetail(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
