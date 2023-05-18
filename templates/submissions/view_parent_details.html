@@ -44,7 +44,13 @@
                         </div>
                         {% endif %}
                         <!-- Parent Details -->
-                        <h2 class="card-header" style="margin-top: 10px;">Parent/Guardian Details</h2>
+                        <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                            <h2 style="margin: 0;">Parent details</h2>
+                            <a class="btn btn-success" href="{% url 'forms_downloads:download_parent_details' user_id=user.id %}" style="margin-left: 10px;">
+                                Download Form 
+                                <i class="fa fa-save" style="font-size:24px;"></i>
+                            </a>
+                        </div>
                         <br>
                             <!-- Father -->
                             <h4 class="card-header">Father</h4>
