@@ -43,7 +43,13 @@
                             {% endfor %}
                         </div>
                         {% endif %}
-                        <h2 class="card-header" style="margin-top: 10px;">Clubs and Societies Details</h2>
+                        <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                            <h2 style="margin: 0;">Clubs and Societies details</h2>
+                            <a class="btn btn-success" href="{% url 'forms_downloads:download_clubs_details' user_id=user.id %}" style="margin-left: 10px;">
+                                Download Form 
+                                 <i class="fa fa-save" style="font-size:24px;"></i>
+                            </a>
+                        </div>
                         <br>
                                 <!-- Clubs and societies    -->
                                 <div class="card-header">Which clubs and societies are you interested in?</div>
