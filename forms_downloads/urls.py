@@ -12,5 +12,6 @@ urlpatterns = [
     path('download-games-and-sport-details/<int:user_id>/', views.download_games_details, name='download_games_details'), # games and sports details download
     path('download-clubs-and-societies-details/<int:user_id>/', views.download_clubs_details, name='download_clubs_details'), # clubs and societies details download
     path('download-other-institution-details/<int:user_id>/', views.download_other_institution_details, name='download_other_institution_details'), # clubs and societies details download
-    path('download-other-details/<int:user_id>/', views.download_other_details, name='download_other_details'), # clubs and societies details download
+    path('download-other-details/<int:user_id>/', views.download_other_details, name='download_other_details'), # Other details download
+    path('download-file-details/<int:user_id>/', views.download_file_details, name='download_file_details'), # Files details download
 ]

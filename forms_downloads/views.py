@@ -6,7 +6,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from io import BytesIO
 
-from admissions.models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail, EmergencyContactDetail, HighSchoolDetail, GamesDetail, ClubsDetail, OtherInstitutionDetail, OtherDetail
+from admissions.models import PersonalDetail, ParentDetail, SpouseDetail, NextKinDetail, EmergencyContactDetail, HighSchoolDetail, GamesDetail, ClubsDetail, OtherInstitutionDetail, OtherDetail, FileDetail
 
 # Download personal details
 def download_personal_details(request, user_id):
@@ -891,6 +891,85 @@ def download_other_details(request, user_id):
     return response
 
 # End of Other details
+
+# Download File details
+def download_file_details(request, user_id):
+    file_details = FileDetail.objects.get(user_id=user_id)
+
+    # Create a BytesIO buffer to receive the PDF data
+    buffer = BytesIO()
+
+    # Create the PDF object, using the buffer as its "file"
+    p = canvas.Canvas(buffer, pagesize=letter)
+
+    # Set the font and font size for the PDF
+    p.setFont("Helvetica", 12)
+
+    # Draw the school logo in the header
+    logo_path = 'static/images/logos/KAFU_LOGO.jpg'  # Replace with the actual path to the school logo
+    logo_width = 100
+    logo_height = 100
+    logo_x = (letter[0] - logo_width) / 2  # Center horizontally
+    logo_y = 650  # Adjust the vertical position as desired
+    p.drawImage(logo_path, logo_x, logo_y, width=logo_width, height=logo_height)
+
+    # Set the header text
+    text_y = 635
+    p.setFont("Helvetica-Bold", 16)
+    p.drawString(200, text_y, "KAIMOSI FRIENDS UNIVERSITY")
+    p.setFont("Helvetica-Bold", 12)
+    p.drawString(270, text_y-20, "Online Admission")
+
+    # The student
+    text_y = 570  # Adjust the vertical position as desired
+    p.setFont("Helvetica-Bold", 14)
+    p.drawString(50, text_y, "Username: {}".format(file_details.user.username))
+    p.setFont("Helvetica", 12)
+    p.drawString(50, text_y - 20, "File Details Form")
+
+
+    # Write the personal details to the PDF
+    
+    # Name section heading
+    text_y -= 70  # Adjust the vertical position as desired
+    p.setFont("Helvetica-Bold", 14)
+    p.drawString(50, text_y, "Disabilities")
+    p.setFont("Helvetica", 12)
+    p.drawString(50, text_y - 20, "Photo: {}".format(file_details.photo))
+
+    
+    text_y -= 70  # Adjust the vertical position as desired
+    p.setFont("Helvetica-Bold", 14)
+    p.drawString(50, text_y, "Medical Report")
+    p.setFont("Helvetica", 12)
+    p.drawString(50, text_y - 20, "Medical: {}".format(file_details.medical))
+
+    
+    text_y -= 70  # Adjust the vertical position as desired
+    p.setFont("Helvetica-Bold", 14)
+    p.drawString(50, text_y, "Sports")
+    p.setFont("Helvetica", 12)
+    p.drawString(50, text_y - 20, "Details: {}".format(file_details.sporting))
+
+    # Save the PDF to the buffer
+    p.showPage()
+    p.save()
+
+    # Set the buffer's position back to the beginning
+    buffer.seek(0)
+
+    # Set the response headers for the PDF file
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="File Details.pdf"'
+
+    # Write the buffer's content to the response
+    response.write(buffer.getvalue())
+
+    return response
+
+# End of file details
+
+
 
 
 
