@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin', # for the admin site
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     'admissions', # form submissions
     'submissions', # view the details submitted
     'forms_downloads', # forms download app
+    
 ]
 
 MIDDLEWARE = [
@@ -142,3 +144,10 @@ LOGOUT_REDIRECT_URL = '/'
 
 # Uploads
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+
+JAZZMIN_SETTINGS = {
+    'site_title': 'My Admin Site',
+    'site_header': 'My Admin Site',
+    'welcome_sign': 'Welcome to My Admin Site',
+    # Add more customizations as needed
+}
