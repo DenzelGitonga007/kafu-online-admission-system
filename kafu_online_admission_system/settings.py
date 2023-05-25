@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-+vn)(j^kmr9b7gn$62eo((a*e(lxhfvr!r^n&w@krekzs2h&ss
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['https://kafu-online-admission-system.up.railway.app']
 
 
 # Application definition
