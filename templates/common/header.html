@@ -1,71 +1,87 @@
+<!-- header.html -->
 {% load static %}
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="{% url 'home' %}">
-      <!-- Logo -->
-      <img src="{% static 'images/logos/KAFU_LOGO.jpg' %}" alt="Logo" height="40">
-      KAFU ONLINE ADMISSION SYSTEM
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <!-- Nav bar buttons -->
-      <!-- <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Store</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Dropdown
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">Disabled</a>
-        </li>
-      </ul> -->
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <!-- Brand/logo -->
+            <!-- If user is logged in -->
+            {% if user.is_authenticated %}
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <!-- Logo -->
+                <img src="{% static 'images/logos/KAFU_LOGO.jpg' %}" alt="Logo" height="40" class="mr-2 rounded">
+                KAFU E-VOTING SYSTEM
+            </a>
 
+            <!-- Toggler button for small screens -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-      <!-- Login/Register -->
-      <!-- If user is logged in -->
-      {% if user.is_authenticated %}
-            <ul class="navbar-nav d-none d-lg-flex ml-auto order-3">
-                <li class="nav-item">
-                    <a class="nav-link" href="">
+            <!-- Navigation links -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Navigation links -->
+                <ul class="navbar-nav ml-auto">
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Contact</a>
+                    </li> -->
+                    <!-- Add more navigation links as needed -->
+                </ul>
+            </div>
+            <!-- Welcome Note -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Display welcome message and logout link for superuser -->
+                <ul class="navbar-nav ml-auto">
+                    <!-- Welcome -->
+                    <li class="nav-item">
+                    <a class="nav-link" href="#">
                         Welcome, {{ user.username }}
                     </a>
-                </li>
-                <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
                   <a class="nav-link" href="{% url 'logout' %}">
                     Logout
                   </a>
-                </li>
-            </ul>
-      <!-- If user is not logged in -->
-      {% else %}
-        <ul class="navbar-nav d-none d-lg-flex ml-auto order-3">
-          <li class="nav-item {% if request.path == '/login/' %}d-none{% endif %}">
-            <a class="nav-link" href="{% url 'login' %}">
-              Login
+                    </li>
+                </ul>
+            </div>
+            <!-- If not logged in -->
+            {% else %}
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <!-- Logo -->
+                <img src="{% static 'images/logos/KAFU_LOGO.jpg' %}" alt="Logo" height="40" class="mr-2 rounded">
+                KAFU E-VOTING SYSTEM
             </a>
-          </li>
-          <li class="nav-item {% if request.path == '/register/' %}d-none{% endif %}">
-            <a class="nav-link" href="{% url 'register' %}">
-              Register
-            </a>
-          </li>
-        </ul>
-      <!-- End the login/register if statement -->
-      {% endif %}
-    </div>
-  </nav>
+
+            <!-- Toggler button for small screens -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Display welcome message and logout link for superuser -->
+                <ul class="navbar-nav ml-auto">
+                    <!-- Register -->
+                    <li class="nav-item {% if request.path == '/login/' %}d-none{% endif %}">
+                      <a class="nav-link" href="{% url 'login' %}">
+                        Login
+                      </a>
+                    </li>
+                    <li class="nav-item {% if request.path == '/register/' %}d-none{% endif %}">
+                      <a class="nav-link" href="{% url 'register' %}">
+                        Register
+                      </a>
+                    </li>
+                </ul>
+            </div>
+
+            {% endif %}
+
+        </div>
+    </nav>
+</header>
