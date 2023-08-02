@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 # For the static folder, and styling
 import os
+# Database url
+import dj_database_url
 
 
 
@@ -87,6 +89,7 @@ WSGI_APPLICATION = 'kafu_online_admission_system.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# Default db
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -94,6 +97,8 @@ DATABASES = {
     }
 }
 
+# Deployment db
+DATABASES["default"] = dj_database_url.parse("postgres://adm_db_user:PvDqTetGsAVsXPnjmtqX92EQqAhlQAvM@dpg-cj51uc9itvpc73flug8g-a.oregon-postgres.render.com/adm_db")
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
